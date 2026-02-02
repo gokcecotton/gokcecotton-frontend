@@ -1,10 +1,10 @@
-
+import { HomePage } from "../../pages/home/HomePage"
 
 function App() {
 
   return (
     <>
-      <p>Welcome to Gökçe Cotton shop app</p>
+      <HomePage />
     </>
   )
 }
