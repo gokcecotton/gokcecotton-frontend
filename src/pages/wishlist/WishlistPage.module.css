@@ -1,0 +1,29 @@
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.empty {
+    text-align: center;
+    padding: 5rem;
+    color: #777;
+    font-size: 1.2rem;
+}
+
+.loading {
+    text-align: center;
+    padding: 10rem;
+    font-size: 1.5rem;
+}

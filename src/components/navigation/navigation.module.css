@@ -1,15 +1,124 @@
 .nav {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  border-bottom: solid 2px #e0cfc7;
-  
+  padding: 1rem 5%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .logoImage {
-  width: 80px;
-  height: auto;
+  height: 50px;
+  width: auto;
 }
-.title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-left: 10px;
+
+.brandName {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #333;
+}
+
+.links {
+  display: flex;
+  gap: 2rem;
+}
+
+.link {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: #000;
+}
+
+.activeLink {
+  text-decoration: none;
+  color: #d4af37;
+  font-weight: 600;
+  border-bottom: 2px solid #d4af37;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.actionIcon {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.cartContainer {
+  position: relative;
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.badge {
+  background-color: #d4af37;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+.loginBtn {
+  background-color: #333;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.loginBtn:hover {
+  background-color: #000;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logoutBtn {
+  background: none;
+  border: 1px solid #333;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.logoutBtn:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.profileLink {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
 }
