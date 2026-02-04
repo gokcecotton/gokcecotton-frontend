@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { lazy, useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { SharedLayout } from "../SharedLayout/SharedLayout";
 import { refreshUser } from "../../redux/auth/operations";
@@ -24,41 +24,44 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="products" element={<ProductsPage />} />
-        <Route path="products/:productId" element={<ProductDetailsPage />} />
-        <Route path="cart" element={<CartPage />} />
+    <Suspense fallback={<div style={{ textAlign: 'center', padding: '2rem' }}>Yükleniyor...</div>}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
 
-        <Route path="login" element={
-          <RestrictedRoute redirectTo="/products">
-            <LoginPage />
-          </RestrictedRoute>
-        } />
-        <Route path="register" element={
-          <RestrictedRoute redirectTo="/products">
-            <RegisterPage />
-          </RestrictedRoute>
-        } />
+        <Route element={<SharedLayout />}>
+          <Route path="products" element={<ProductsPage />} />
+          <Route path="products/:productId" element={<ProductDetailsPage />} />
+          <Route path="cart" element={<CartPage />} />
 
-        <Route path="checkout" element={
-          <PrivateRoute>
-            <CheckoutPage />
-          </PrivateRoute>
-        } />
-        <Route path="orders" element={
-          <PrivateRoute>
-            <OrdersPage />
-          </PrivateRoute>
-        } />
-        <Route path="wishlist" element={
-          <PrivateRoute>
-            <WishlistPage />
-          </PrivateRoute>
-        } />
-      </Route>
-    </Routes>
+          <Route path="login" element={
+            <RestrictedRoute redirectTo="/products">
+              <LoginPage />
+            </RestrictedRoute>
+          } />
+          <Route path="register" element={
+            <RestrictedRoute redirectTo="/products">
+              <RegisterPage />
+            </RestrictedRoute>
+          } />
+
+          <Route path="checkout" element={
+            <PrivateRoute>
+              <CheckoutPage />
+            </PrivateRoute>
+          } />
+          <Route path="orders" element={
+            <PrivateRoute>
+              <OrdersPage />
+            </PrivateRoute>
+          } />
+          <Route path="wishlist" element={
+            <PrivateRoute>
+              <WishlistPage />
+            </PrivateRoute>
+          } />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 

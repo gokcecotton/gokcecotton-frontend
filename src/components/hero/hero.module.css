@@ -10,6 +10,7 @@
   background-position: center;
   border-radius: 10px;
 }
+
 .title {
   color: #ffffff;
   text-shadow: 2px 2px 4px rgb(69 67 67);
@@ -17,17 +18,20 @@
   font-weight: 400;
   letter-spacing: 5px;
 }
+
 .heroContent {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-items: center;
 }
+
 .subtitle {
   font-size: 32px;
   margin-bottom: 10px;
   margin-top: 10px;
 }
+
 .shopButton {
   background-color: #7d6d6c;
   color: #fff9ef;
@@ -38,7 +42,51 @@
   border-radius: 10px;
   margin-top: 5px;
 }
+
 .shopButton:hover {
+  background-color: #fff9ef;
+  color: #7d6d6c;
+  border: 2px solid #7d6d6c;
+}
+
+.featured {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.featuredContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.featuredContent h2 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.featuredContent p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2.5rem;
+}
+
+.shopBtn {
+  display: inline-block;
+  padding: 1.2rem 3rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.3s;
+  background-color: #7d6d6c;
+  color: #fff9ef;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.shopBtn:hover {
+  transform: translateY(-3px);
   background-color: #fff9ef;
   color: #7d6d6c;
   border: 2px solid #7d6d6c;
