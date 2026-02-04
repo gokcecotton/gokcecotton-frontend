@@ -59,7 +59,7 @@ export const ProductDetailsPage = () => {
     };
 
     if (isLoading || !product) {
-        return <div className={css.loading}>Loading product details...</div>;
+        return <div className={css.loading}>Ürün detayları yükleniyor...</div>;
     }
 
     const { title, description, price, brand, images, stock, attributes } = product;
@@ -91,14 +91,14 @@ export const ProductDetailsPage = () => {
 
                     <div className={css.status}>
                         {stock > 0 ? (
-                            <span className={css.inStock}>In Stock ({stock} available)</span>
+                            <span className={css.inStock}>Stokta ({stock} adet mevcut)</span>
                         ) : (
-                            <span className={css.outOfStock}>Out of Stock</span>
+                            <span className={css.outOfStock}>Stokta Yok</span>
                         )}
                     </div>
 
                     <div className={css.description}>
-                        <h3>Description</h3>
+                        <h3>Açıklama</h3>
                         <p>{description}</p>
                     </div>
 
@@ -147,14 +147,14 @@ export const ProductDetailsPage = () => {
                             onClick={handleAddToCart}
                             disabled={stock === 0}
                         >
-                            Add to Cart
+                            Sepete Ekle
                         </button>
 
                         <button
                             className={`${css.wishBtn} ${isInWishlist ? css.inWishlist : ""}`}
                             onClick={toggleWishlist}
                         >
-                            {isInWishlist ? "❤️ In Wishlist" : "🤍 Add to Wishlist"}
+                            {isInWishlist ? "❤️ Favorilerimde" : "🤍 Favorilere Ekle"}
                         </button>
                     </div>
                 </div>

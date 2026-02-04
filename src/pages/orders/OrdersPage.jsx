@@ -14,36 +14,36 @@ export const OrdersPage = () => {
     }, [dispatch]);
 
     if (isLoading) {
-        return <div className={css.loading}>Loading order history...</div>;
+        return <div className={css.loading}>Sipariş geçmişi yükleniyor...</div>;
     }
 
     return (
         <div className={css.page}>
-            <h1 className={css.title}>My Orders</h1>
+            <h1 className={css.title}>Siparişlerim</h1>
 
             {orders.length === 0 ? (
-                <div className={css.empty}>You haven't placed any orders yet.</div>
+                <div className={css.empty}>Henüz bir sipariş vermediniz.</div>
             ) : (
                 <div className={css.ordersList}>
                     {orders.map((order) => (
                         <div key={order._id} className={css.orderCard}>
                             <div className={css.orderHeader}>
                                 <div>
-                                    <p className={css.label}>Order Placed</p>
+                                    <p className={css.label}>Sipariş Tarihi</p>
                                     <p className={css.value}>{new Date(order.createdAt).toLocaleDateString()}</p>
                                 </div>
                                 <div>
-                                    <p className={css.label}>Total Amount</p>
+                                    <p className={css.label}>Toplam Tutar</p>
                                     <p className={css.value}>${order.totalPrice.toFixed(2)}</p>
                                 </div>
                                 <div className={css.statusCol}>
-                                    <p className={css.label}>Status</p>
+                                    <p className={css.label}>Durum</p>
                                     <span className={`${css.status} ${css[order.status.toLowerCase()]}`}>
                                         {order.status}
                                     </span>
                                 </div>
                                 <div>
-                                    <p className={css.label}>Order ID</p>
+                                    <p className={css.label}>Sipariş No</p>
                                     <p className={css.idValue}>#{order._id.slice(-8)}</p>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@ export const OrdersPage = () => {
                                 {order.items.map((item, idx) => (
                                     <div key={idx} className={css.item}>
                                         <p className={css.itemName}>
-                                            {item.productId?.title || "Product"} <span>x{item.quantity}</span>
+                                            {item.productId?.title || "Ürün"} <span>x{item.quantity}</span>
                                         </p>
                                         <p className={css.itemPrice}>${item.price.toFixed(2)}</p>
                                     </div>

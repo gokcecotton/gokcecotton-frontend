@@ -15,15 +15,15 @@ export const WishlistPage = () => {
     }, [dispatch]);
 
     if (isLoading) {
-        return <div className={css.loading}>Loading wishlist...</div>;
+        return <div className={css.loading}>Favori listesi yükleniyor...</div>;
     }
 
     return (
         <div className={css.page}>
-            <h1 className={css.title}>My Wishlist</h1>
+            <h1 className={css.title}>Favorilerim</h1>
 
             {items.length === 0 ? (
-                <div className={css.empty}>Your wishlist is empty.</div>
+                <div className={css.empty}>Favori listeniz boş.</div>
             ) : (
                 <div className={css.grid}>
                     {items.map((product) => (

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/products/operations";
 import { fetchCategories } from "../../redux/categories/operations";
-import { selectProducts, selectIsLoading as selectProductsLoading } from "../../redux/products/selectors";
+import { selectProducts, selectIsLoading as selectProductsLoading, selectProductsPageInfo } from "../../redux/products/selectors";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
 import { CategoryFilters } from "../../components/CategoryFilters/CategoryFilters";
 import css from "./ProductsPage.module.css";
@@ -43,11 +43,11 @@ export const ProductsPage = () => {
     return (
         <div className={css.page}>
             <header className={css.header}>
-                <h1 className={css.title}>Our Collection</h1>
+                <h1 className={css.title}>Koleksiyonumuz</h1>
                 <div className={css.searchBar}>
                     <input
                         type="text"
-                        placeholder="Search products..."
+                        placeholder="Ürün ara..."
                         value={searchTerm}
                         onChange={handleSearchChange}
                         className={css.searchInput}
@@ -65,7 +65,7 @@ export const ProductsPage = () => {
 
                 <section className={css.main}>
                     {isLoading ? (
-                        <div className={css.loading}>Loading items...</div>
+                        <div className={css.loading}>Ürünler yükleniyor...</div>
                     ) : (
                         <>
                             <div className={css.grid}>
@@ -75,7 +75,7 @@ export const ProductsPage = () => {
                             </div>
 
                             {products.length === 0 && (
-                                <div className={css.empty}>No products found.</div>
+                                <div className={css.empty}>Ürün bulunamadı.</div>
                             )}
 
                             {pageInfo.totalPages > 1 && (
@@ -84,17 +84,17 @@ export const ProductsPage = () => {
                                         disabled={!pageInfo.hasPreviousPage}
                                         onClick={() => setPage(prev => prev - 1)}
                                         className={css.pageBtn}
-                                    >Previous</button>
+                                    >Önceki</button>
 
                                     <span className={css.pageInfo}>
-                                        Page {pageInfo.page} of {pageInfo.totalPages}
+                                        Sayfa {pageInfo.page} / {pageInfo.totalPages}
                                     </span>
 
                                     <button
                                         disabled={!pageInfo.hasNextPage}
                                         onClick={() => setPage(prev => prev + 1)}
                                         className={css.pageBtn}
-                                    >Next</button>
+                                    >Sonraki</button>
                                 </div>
                             )}
                         </>

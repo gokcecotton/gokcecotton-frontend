@@ -36,17 +36,17 @@ export const CartPage = () => {
     }, 0);
 
     if (isLoading) {
-        return <div className={css.loading}>Loading your cart...</div>;
+        return <div className={css.loading}>Sepetiniz yükleniyor...</div>;
     }
 
     return (
         <div className={css.page}>
-            <h1 className={css.title}>Your Shopping Cart</h1>
+            <h1 className={css.title}>Alışveriş Sepetiniz</h1>
 
             {cartItems.length === 0 ? (
                 <div className={css.empty}>
-                    <p>Your cart is currently empty.</p>
-                    <Link to="/products" className={css.shopBtn}>Start Shopping</Link>
+                    <p>Sepetiniz şu anda boş.</p>
+                    <Link to="/products" className={css.shopBtn}>Alışverişe Başla</Link>
                 </div>
             ) : (
                 <div className={css.container}>
@@ -75,30 +75,30 @@ export const CartPage = () => {
                                             <span>{item.quantity}</span>
                                             <button onClick={() => handleUpdateQuantity(item._id, item.quantity + 1)}>+</button>
                                         </div>
-                                        <button className={css.removeBtn} onClick={() => handleRemove(item._id)}>Remove</button>
+                                        <button className={css.removeBtn} onClick={() => handleRemove(item._id)}>Kaldır</button>
                                     </div>
                                 </div>
                             );
                         })}
-                        <button className={css.clearBtn} onClick={handleClear}>Clear Cart</button>
+                        <button className={css.clearBtn} onClick={handleClear}>Sepeti Temizle</button>
                     </div>
 
                     <aside className={css.summary}>
-                        <h3>Order Summary</h3>
+                        <h3>Sipariş Özeti</h3>
                         <div className={css.summaryRow}>
-                            <span>Subtotal</span>
+                            <span>Ara Toplam</span>
                             <span>${totalPrice.toFixed(2)}</span>
                         </div>
                         <div className={css.summaryRow}>
-                            <span>Shipping</span>
-                            <span>Calculated at next step</span>
+                            <span>Kargo</span>
+                            <span>Bir sonraki adımda hesaplanacak</span>
                         </div>
                         <div className={`${css.summaryRow} ${css.total}`}>
-                            <span>Total</span>
+                            <span>Toplam</span>
                             <span>${totalPrice.toFixed(2)}</span>
                         </div>
                         <button className={css.checkoutBtn} onClick={() => navigate("/checkout")}>
-                            Proceed to Checkout
+                            Ödeme Adımına Geç
                         </button>
                     </aside>
                 </div>

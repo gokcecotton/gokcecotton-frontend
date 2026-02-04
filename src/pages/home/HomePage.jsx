@@ -19,24 +19,28 @@ export const HomePage = () => {
             <Hero />
 
             <section className={css.categories}>
-                <h2 className={css.sectionTitle}>Shop by Category</h2>
+                <h2 className={css.sectionTitle}>Kategoriye Göre Alışveriş</h2>
                 <div className={css.catGrid}>
-                    {categories.map(cat => (
-                        <Link key={cat._id} to={`/products?categoryId=${cat._id}`} className={css.catCard}>
-                            {cat.image && <img src={cat.image} alt={cat.name} className={css.catImg} />}
-                            <div className={css.catOverlay}>
-                                <h3>{cat.name}</h3>
-                            </div>
-                        </Link>
-                    ))}
+                    {Array.isArray(categories) && categories.length > 0 ? (
+                        categories.map(cat => (
+                            <Link key={cat._id} to={`/products?categoryId=${cat._id}`} className={css.catCard}>
+                                {cat.image && <img src={cat.image} alt={cat.name} className={css.catImg} />}
+                                <div className={css.catOverlay}>
+                                    <h3>{cat.name}</h3>
+                                </div>
+                            </Link>
+                        ))
+                    ) : (
+                        <p className={css.noCats}>Kategori bulunamadı.</p>
+                    )}
                 </div>
             </section>
 
             <section className={css.featured}>
                 <div className={css.featuredContent}>
-                    <h2>Quality You Can Feel</h2>
-                    <p>Every piece is crafted with 100% organic cotton for ultimate comfort.</p>
-                    <Link to="/products" className={css.shopBtn}>View Collection</Link>
+                    <h2>Hissedebileceğiniz Kalite</h2>
+                    <p>Her parça, üstün konfor için %100 organik pamukla işlenmiştir.</p>
+                    <Link to="/products" className={css.shopBtn}>Koleksiyonu İncele</Link>
                 </div>
             </section>
         </div>

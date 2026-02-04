@@ -29,13 +29,13 @@ export const RegisterPage = () => {
     return (
         <div className={css.page}>
             <div className={css.card}>
-                <h1 className={css.title}>Create Account</h1>
-                <p className={css.subtitle}>Join Gökçe Cotton family</p>
+                <h1 className={css.title}>Hesap Oluştur</h1>
+                <p className={css.subtitle}>Gökçe Cotton ailesine katılın</p>
 
                 <form onSubmit={handleSubmit} className={css.form}>
                     <div className={css.row}>
                         <div className={css.field}>
-                            <label>Name</label>
+                            <label>Ad</label>
                             <input
                                 type="text"
                                 name="name"
@@ -45,7 +45,7 @@ export const RegisterPage = () => {
                             />
                         </div>
                         <div className={css.field}>
-                            <label>Surname</label>
+                            <label>Soyad</label>
                             <input
                                 type="text"
                                 name="surname"
@@ -57,7 +57,7 @@ export const RegisterPage = () => {
                     </div>
 
                     <div className={css.field}>
-                        <label>Email Address</label>
+                        <label>E-posta Adresi</label>
                         <input
                             type="email"
                             name="email"
@@ -68,7 +68,7 @@ export const RegisterPage = () => {
                     </div>
 
                     <div className={css.field}>
-                        <label>Password</label>
+                        <label>Parola</label>
                         <input
                             type="password"
                             name="password"
@@ -81,12 +81,12 @@ export const RegisterPage = () => {
                     {error && <p className={css.error}>{error}</p>}
 
                     <button type="submit" className={css.submitBtn} disabled={isLoading}>
-                        {isLoading ? "Creating account..." : "Register"}
+                        {isLoading ? "Hesap oluşturuluyor..." : "Kayıt Ol"}
                     </button>
                 </form>
 
                 <p className={css.switch}>
-                    Already have an account? <Link to="/login">Login here</Link>
+                    Zaten hesabınız var mı? <Link to="/login">Buradan giriş yapın</Link>
                 </p>
             </div>
         </div>

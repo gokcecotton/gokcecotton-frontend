@@ -27,12 +27,12 @@ export const LoginPage = () => {
     return (
         <div className={css.page}>
             <div className={css.card}>
-                <h1 className={css.title}>Login</h1>
-                <p className={css.subtitle}>Welcome back to Gökçe Cotton</p>
+                <h1 className={css.title}>Giriş Yap</h1>
+                <p className={css.subtitle}>Gökçe Cotton'a tekrar hoş geldiniz</p>
 
                 <form onSubmit={handleSubmit} className={css.form}>
                     <div className={css.field}>
-                        <label>Email Address</label>
+                        <label>E-posta Adresi</label>
                         <input
                             type="email"
                             name="email"
@@ -44,26 +44,26 @@ export const LoginPage = () => {
                     </div>
 
                     <div className={css.field}>
-                        <label>Password</label>
+                        <label>Parola</label>
                         <input
                             type="password"
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
                             required
-                            placeholder="Enter your password"
+                            placeholder="Parolanızı girin"
                         />
                     </div>
 
                     {error && <p className={css.error}>{error}</p>}
 
                     <button type="submit" className={css.submitBtn} disabled={isLoading}>
-                        {isLoading ? "Logging in..." : "Login"}
+                        {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
                     </button>
                 </form>
 
                 <p className={css.switch}>
-                    Don't have an account? <Link to="/register">Register here</Link>
+                    Hesabınız yok mu? <Link to="/register">Buradan kayıt olun</Link>
                 </p>
             </div>
         </div>

@@ -28,28 +28,28 @@ export const Navigation = () => {
 
       <div className={css.links}>
         <NavLink to="/" className={({ isActive }) => isActive ? css.activeLink : css.link}>
-          Home
+          Anasayfa
         </NavLink>
         <NavLink to="/products" className={({ isActive }) => isActive ? css.activeLink : css.link}>
-          Shop
+          Mağaza
         </NavLink>
       </div>
 
       <div className={css.actions}>
         <Link to="/wishlist" className={css.actionIcon}>
-          Wishlist
+          Favorilerim
         </Link>
         <Link to="/cart" className={css.cartContainer}>
-          <span>Cart</span>
+          <span>Sepetim</span>
           {cartCount > 0 && <span className={css.badge}>{cartCount}</span>}
         </Link>
         {isLoggedIn ? (
           <div className={css.userMenu}>
-            <Link to="/orders" className={css.profileLink}>Orders</Link>
-            <button onClick={handleLogout} className={css.logoutBtn}>Logout</button>
+            <Link to="/orders" className={css.profileLink}>Siparişlerim</Link>
+            <button onClick={handleLogout} className={css.logoutBtn}>Çıkış Yap</button>
           </div>
         ) : (
-          <Link to="/login" className={css.loginBtn}>Login</Link>
+          <Link to="/login" className={css.loginBtn}>Giriş Yap</Link>
         )}
       </div>
     </nav>

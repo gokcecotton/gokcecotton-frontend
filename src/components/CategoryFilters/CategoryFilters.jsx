@@ -7,12 +7,12 @@ export const CategoryFilters = ({ activeCategory, onCategoryChange }) => {
 
     return (
         <div className={css.container}>
-            <h3 className={css.title}>Categories</h3>
+            <h3 className={css.title}>Kategoriler</h3>
             <button
                 className={`${css.btn} ${!activeCategory ? css.active : ""}`}
                 onClick={() => onCategoryChange(null)}
             >
-                All Products
+                Tüm Ürünler
             </button>
             {categories.map((category) => (
                 <button

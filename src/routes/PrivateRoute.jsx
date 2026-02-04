@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
   const isRefreshing = useSelector(selectIsRefreshing);
 
   return isRefreshing ? (
-    <div>Loading...</div>
+    <div>Yükleniyor...</div>
   ) : isLoggedIn ? (
     children
   ) : (

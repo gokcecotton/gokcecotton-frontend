@@ -68,17 +68,21 @@ export const loginUser = createAsyncThunk(
         { withCredentials: true }
       );
 
-      // Backend sadece user döner, token cookie'dedir
-      const { user } = response.data.data;
+      // Backend dönerken hem user hem token döner
+      const { user, accessToken } = response.data.data;
 
       if (!user) {
         return thunkAPI.rejectWithValue("User not found in response");
       }
 
-      // Sadece user bilgisini sakla (opsiyonel)
+      if (accessToken) {
+        setAuthHeader(accessToken);
+      }
+
+      // Sadece user bilgisini sakla
       localStorage.setItem("user", JSON.stringify(user));
 
-      return { user };
+      return { user, token: accessToken };
     } catch (error) {
       const message = error.response?.data?.message || "Login failed";
       return thunkAPI.rejectWithValue(message);
@@ -120,15 +124,20 @@ export const refreshUser = createAsyncThunk(
       setAuthHeader(accessToken);
 
       // Kullanıcı bilgisini localStorage'dan al
-      const storedUser = localStorage.getItem("user");
-      const user = storedUser ? JSON.parse(storedUser) : null;
+      let user = null;
+      try {
+        const storedUser = localStorage.getItem("user");
+        user = storedUser ? JSON.parse(storedUser) : null;
+      } catch (e) {
+        console.error("Error parsing stored user:", e);
+      }
 
       return { user, token: accessToken };
     } catch (error) {
-      console.error("Refresh error:", error.response?.data || error.message);
+      if (error.response?.status !== 401) {
+        console.error("Refresh error:", error.response?.data || error.message);
+      }
 
-      // 401 veya başka bir hata durumunda kullanıcı logout
-      // thunkAPI.dispatch(logoutUser());
       return thunkAPI.rejectWithValue(
         error.response?.data?.message || error.message
       );

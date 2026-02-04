@@ -69,34 +69,34 @@ export const CheckoutPage = () => {
 
     return (
         <div className={css.page}>
-            <h1 className={css.title}>Checkout</h1>
+            <h1 className={css.title}>Ödeme</h1>
 
             <form onSubmit={handleSubmit} className={css.container}>
                 <div className={css.billing}>
                     <section className={css.section}>
-                        <h3>Shipping Address</h3>
+                        <h3>Teslimat Adresi</h3>
                         <div className={css.field}>
-                            <label>Street Address</label>
+                            <label>Sokak/Cadde Adresi</label>
                             <input type="text" name="street" value={formData.street} onChange={handleChange} required />
                         </div>
                         <div className={css.row}>
                             <div className={css.field}>
-                                <label>City</label>
+                                <label>Şehir</label>
                                 <input type="text" name="city" value={formData.city} onChange={handleChange} required />
                             </div>
                             <div className={css.field}>
-                                <label>Zip Code</label>
+                                <label>Posta Kodu</label>
                                 <input type="text" name="zip" value={formData.zip} onChange={handleChange} required />
                             </div>
                         </div>
                         <div className={css.field}>
-                            <label>Contact Number</label>
+                            <label>İletişim Numarası</label>
                             <input type="text" name="contactNumber" value={formData.contactNumber} onChange={handleChange} required />
                         </div>
                     </section>
 
                     <section className={css.section}>
-                        <h3>Payment Method</h3>
+                        <h3>Ödeme Yöntemi</h3>
                         <div className={css.radioGroup}>
                             <label className={css.radio}>
                                 <input
@@ -106,7 +106,7 @@ export const CheckoutPage = () => {
                                     checked={formData.paymentMethod === "Credit Card"}
                                     onChange={handleChange}
                                 />
-                                <span>Credit Card (Secure via Iyzico)</span>
+                                <span>Kredi Kartı (Iyzico ile Güvenli)</span>
                             </label>
                             <label className={css.radio}>
                                 <input
@@ -116,7 +116,7 @@ export const CheckoutPage = () => {
                                     checked={formData.paymentMethod === "Cash on Delivery"}
                                     onChange={handleChange}
                                 />
-                                <span>Cash on Delivery</span>
+                                <span>Kapıda Ödeme</span>
                             </label>
                             <label className={css.radio}>
                                 <input
@@ -126,14 +126,14 @@ export const CheckoutPage = () => {
                                     checked={formData.paymentMethod === "Bank Transfer"}
                                     onChange={handleChange}
                                 />
-                                <span>Bank Transfer</span>
+                                <span>Banka Havalesi</span>
                             </label>
                         </div>
                     </section>
                 </div>
 
                 <aside className={css.summary}>
-                    <h3>Order Summary</h3>
+                    <h3>Sipariş Özeti</h3>
                     <div className={css.items}>
                         {cartItems.map(item => (
                             <div key={item._id} className={css.summaryItem}>
@@ -143,11 +143,11 @@ export const CheckoutPage = () => {
                         ))}
                     </div>
                     <div className={css.total}>
-                        <span>Total to pay</span>
+                        <span>Ödenecek Toplam</span>
                         <span>${subtotal.toFixed(2)}</span>
                     </div>
                     <button type="submit" className={css.placeOrderBtn} disabled={isSubmitting || cartItems.length === 0}>
-                        {isSubmitting ? "Placing Order..." : "Place Order"}
+                        {isSubmitting ? "Sipariş Oluşturuluyor..." : "Siparişi Tamamla"}
                     </button>
                 </aside>
             </form>

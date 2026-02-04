@@ -17,13 +17,13 @@ export const ProductCard = ({ product }) => {
             <Link to={`/products/${_id}`} className={css.link}>
                 <div className={css.imageWrapper}>
                     <img
-                        src={(product.images && product.images[0]) || "https://via.placeholder.com/300x400?text=No+Image"}
+                        src={(product.images && product.images[0]) || "https://via.placeholder.com/300x400?text=Görsel+Yok"}
                         alt={product.title}
                         className={css.image}
-                        onError={(e) => { e.target.src = "https://via.placeholder.com/300x400?text=Image+Not+Found"; }}
+                        onError={(e) => { e.target.src = "https://via.placeholder.com/300x400?text=Görsel+Bulunamadı"; }}
                     />
                     <div className={css.overlay}>
-                        <button className={css.quickAdd}>Quick View</button>
+                        <button className={css.quickAdd}>Hızlı Bakış</button>
                     </div>
                 </div>
                 <div className={css.info}>
@@ -33,7 +33,7 @@ export const ProductCard = ({ product }) => {
                 </div>
             </Link>
             <button className={css.addBtn} onClick={handleAddToCart}>
-                Add to Cart
+                Sepete Ekle
             </button>
         </div>
     );

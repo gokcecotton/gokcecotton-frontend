@@ -50,18 +50,18 @@ export const authSlice = createSlice({
       // REGISTER
       .addCase(registerUser.pending, handlePending)
       .addCase(registerUser.fulfilled, (state, action) => {
-        const { user, token } = action.payload;
+        const payload = action.payload || {};
+        const { user, token } = payload;
 
         state.user = {
+          _id: user?._id || null,
           name: user?.name || null,
           surname: user?.surname || null,
           email: user?.email || null,
         };
 
-        // DUZELTILMIS KISIM
         state.token = token || null;
-        state.isLoggedIn = !!token;
-
+        state.isLoggedIn = !!user?._id;
         state.isLoading = false;
         state.error = null;
       })
@@ -70,17 +70,18 @@ export const authSlice = createSlice({
       // LOGIN
       .addCase(loginUser.pending, handlePending)
       .addCase(loginUser.fulfilled, (state, action) => {
-        const { user, token } = action.payload;
+        const payload = action.payload || {};
+        const { user, token } = payload;
 
         state.user = {
-          _id: user._id,
+          _id: user?._id || null,
           name: user?.name || null,
           surname: user?.surname || null,
           email: user?.email || null,
         };
 
         state.token = token || null;
-        state.isLoggedIn = !!user._id;
+        state.isLoggedIn = !!user?._id;
         state.isLoading = false;
         state.error = null;
       })
@@ -102,17 +103,18 @@ export const authSlice = createSlice({
         state.error = null;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        const { user, token } = action.payload;
+        const payload = action.payload || {};
+        const { user, token } = payload;
 
         state.user = {
-          _id: user._id,
+          _id: user?._id || null,
           name: user?.name || null,
           surname: user?.surname || null,
           email: user?.email || null,
         };
 
         state.token = token || null;
-        state.isLoggedIn = !!token;
+        state.isLoggedIn = !!user?._id;
         state.isRefreshing = false;
         state.error = null;
       })
