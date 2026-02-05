@@ -68,21 +68,22 @@ export const loginUser = createAsyncThunk(
         { withCredentials: true }
       );
 
-      // Backend dönerken hem user hem token döner
-      const { user, accessToken } = response.data.data;
+      // Backend dönerken hem user hem token döner (accessToken veya token ismiyle gelebilir)
+      const { user, accessToken, token } = response.data.data;
+      const finalToken = accessToken || token;
 
       if (!user) {
         return thunkAPI.rejectWithValue("User not found in response");
       }
 
-      if (accessToken) {
-        setAuthHeader(accessToken);
+      if (finalToken) {
+        setAuthHeader(finalToken);
       }
 
       // Sadece user bilgisini sakla
       localStorage.setItem("user", JSON.stringify(user));
 
-      return { user, token: accessToken };
+      return { user, token: finalToken };
     } catch (error) {
       const message = error.response?.data?.message || "Login failed";
       return thunkAPI.rejectWithValue(message);
@@ -118,10 +119,13 @@ export const refreshUser = createAsyncThunk(
       );
 
       const accessToken = response.data?.data?.accessToken;
-      if (!accessToken) throw new Error("Access token not found from refresh");
+      const token = response.data?.data?.token;
+      const finalToken = accessToken || token;
+
+      if (!finalToken) throw new Error("Access token not found from refresh");
 
       // access token'ı header'a set et
-      setAuthHeader(accessToken);
+      setAuthHeader(finalToken);
 
       // Kullanıcı bilgisini localStorage'dan al
       let user = null;
@@ -132,7 +136,7 @@ export const refreshUser = createAsyncThunk(
         console.error("Error parsing stored user:", e);
       }
 
-      return { user, token: accessToken };
+      return { user, token: finalToken };
     } catch (error) {
       if (error.response?.status !== 401) {
         console.error("Refresh error:", error.response?.data || error.message);

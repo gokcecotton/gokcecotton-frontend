@@ -138,13 +138,13 @@ export const CheckoutPage = () => {
                         {cartItems.map(item => (
                             <div key={item._id} className={css.summaryItem}>
                                 <span>{item.productId?.title} x {item.quantity}</span>
-                                <span>${(item.productId?.price * item.quantity).toFixed(2)}</span>
+                                <span>{(item.productId?.price * item.quantity).toFixed(2)} TL</span>
                             </div>
                         ))}
                     </div>
                     <div className={css.total}>
                         <span>Ödenecek Toplam</span>
-                        <span>${subtotal.toFixed(2)}</span>
+                        <span>{subtotal.toFixed(2)} TL</span>
                     </div>
                     <button type="submit" className={css.placeOrderBtn} disabled={isSubmitting || cartItems.length === 0}>
                         {isSubmitting ? "Sipariş Oluşturuluyor..." : "Siparişi Tamamla"}

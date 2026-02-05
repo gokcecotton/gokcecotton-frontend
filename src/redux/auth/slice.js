@@ -44,6 +44,9 @@ export const authSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     },
+    resetError(state) {
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -54,14 +57,14 @@ export const authSlice = createSlice({
         const { user, token } = payload;
 
         state.user = {
-          _id: user?._id || null,
+          _id: user?._id || user?.id || null,
           name: user?.name || null,
           surname: user?.surname || null,
           email: user?.email || null,
         };
 
         state.token = token || null;
-        state.isLoggedIn = !!user?._id;
+        state.isLoggedIn = !!(user?._id || user?.id);
         state.isLoading = false;
         state.error = null;
       })
@@ -74,14 +77,14 @@ export const authSlice = createSlice({
         const { user, token } = payload;
 
         state.user = {
-          _id: user?._id || null,
+          _id: user?._id || user?.id || null,
           name: user?.name || null,
           surname: user?.surname || null,
           email: user?.email || null,
         };
 
         state.token = token || null;
-        state.isLoggedIn = !!user?._id;
+        state.isLoggedIn = !!(user?._id || user?.id);
         state.isLoading = false;
         state.error = null;
       })
@@ -107,14 +110,14 @@ export const authSlice = createSlice({
         const { user, token } = payload;
 
         state.user = {
-          _id: user?._id || null,
+          _id: user?._id || user?.id || null,
           name: user?.name || null,
           surname: user?.surname || null,
           email: user?.email || null,
         };
 
         state.token = token || null;
-        state.isLoggedIn = !!user?._id;
+        state.isLoggedIn = !!(user?._id || user?.id);
         state.isRefreshing = false;
         state.error = null;
       })
@@ -186,5 +189,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { localLogout } = authSlice.actions;
+export const { localLogout, resetError } = authSlice.actions;
 export default authSlice.reducer;

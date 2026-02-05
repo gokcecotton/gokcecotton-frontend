@@ -6,6 +6,7 @@ import { selectCurrentProduct, selectIsLoading } from "../../redux/products/sele
 import { addToCart } from "../../redux/cart/operations";
 import { addToWishlist, removeFromWishlist, selectIsInWishlist } from "../../redux/wishlist";
 import css from "./ProductDetailsPage.module.css";
+import noImage from "../../assets/logo-yazili.png";
 
 export const ProductDetailsPage = () => {
     const { productId } = useParams();
@@ -69,7 +70,7 @@ export const ProductDetailsPage = () => {
             <div className={css.content}>
                 <div className={css.gallery}>
                     <div className={css.mainImageWrapper}>
-                        <img src={images[activeImage] || "https://via.placeholder.com/600"} alt={title} className={css.mainImage} />
+                        <img src={images[activeImage] || noImage} alt={title} className={css.mainImage} />
                     </div>
                     <div className={css.thumbnails}>
                         {images.map((img, idx) => (
@@ -87,7 +88,7 @@ export const ProductDetailsPage = () => {
                 <div className={css.info}>
                     <p className={css.brand}>{brand}</p>
                     <h1 className={css.title}>{title}</h1>
-                    <p className={css.price}>${price}</p>
+                    <p className={css.price}>{price} TL</p>
 
                     <div className={css.status}>
                         {stock > 0 ? (

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cart/operations";
 import css from "./ProductCard.module.css";
+import noImage from "../../assets/logo-yazili.png";
 
 export const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
@@ -17,10 +18,10 @@ export const ProductCard = ({ product }) => {
             <Link to={`/products/${_id}`} className={css.link}>
                 <div className={css.imageWrapper}>
                     <img
-                        src={(product.images && product.images[0]) || "https://via.placeholder.com/300x400?text=Görsel+Yok"}
+                        src={(product.images && product.images[0]) || noImage}
                         alt={product.title}
                         className={css.image}
-                        onError={(e) => { e.target.src = "https://via.placeholder.com/300x400?text=Görsel+Bulunamadı"; }}
+                        onError={(e) => { e.target.src = noImage; }}
                     />
                     <div className={css.overlay}>
                         <button className={css.quickAdd}>Hızlı Bakış</button>
@@ -29,7 +30,7 @@ export const ProductCard = ({ product }) => {
                 <div className={css.info}>
                     <p className={css.brand}>{brand}</p>
                     <h3 className={css.title}>{title}</h3>
-                    <p className={css.price}>${price}</p>
+                    <p className={css.price}>{price} TL</p>
                 </div>
             </Link>
             <button className={css.addBtn} onClick={handleAddToCart}>

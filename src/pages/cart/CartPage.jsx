@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchCart, updateCartItem, removeCartItem, clearCart } from "../../redux/cart/operations";
 import { selectCartItems, selectIsLoading } from "../../redux/cart/selectors";
 import css from "./CartPage.module.css";
+import noImage from "../../assets/logo-yazili.png";
 
 export const CartPage = () => {
     const dispatch = useDispatch();
@@ -57,10 +58,10 @@ export const CartPage = () => {
 
                             return (
                                 <div key={item._id} className={css.item}>
-                                    <img src={product.images?.[0] || "https://via.placeholder.com/100"} alt={product.title} className={css.itemImg} />
+                                    <img src={product.images?.[0] || noImage} alt={product.title} className={css.itemImg} />
                                     <div className={css.itemDetails}>
                                         <h3 className={css.itemTitle}>{product.title}</h3>
-                                        <p className={css.itemPrice}>${product.price}</p>
+                                        <p className={css.itemPrice}>{product.price} TL</p>
                                         {item.selectedAttributes && Object.entries(item.selectedAttributes).length > 0 && (
                                             <div className={css.attributes}>
                                                 {Object.entries(item.selectedAttributes).map(([key, val]) => (
@@ -87,7 +88,7 @@ export const CartPage = () => {
                         <h3>Sipariş Özeti</h3>
                         <div className={css.summaryRow}>
                             <span>Ara Toplam</span>
-                            <span>${totalPrice.toFixed(2)}</span>
+                            <span>{totalPrice.toFixed(2)} TL</span>
                         </div>
                         <div className={css.summaryRow}>
                             <span>Kargo</span>
@@ -95,7 +96,7 @@ export const CartPage = () => {
                         </div>
                         <div className={`${css.summaryRow} ${css.total}`}>
                             <span>Toplam</span>
-                            <span>${totalPrice.toFixed(2)}</span>
+                            <span>{totalPrice.toFixed(2)} TL</span>
                         </div>
                         <button className={css.checkoutBtn} onClick={() => navigate("/checkout")}>
                             Ödeme Adımına Geç

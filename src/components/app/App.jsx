@@ -5,6 +5,7 @@ import { SharedLayout } from "../SharedLayout/SharedLayout";
 import { refreshUser } from "../../redux/auth/operations";
 import RestrictedRoute from "../../routes/RestrictedRoute";
 import PrivateRoute from "../../routes/PrivateRoute";
+import { Toaster } from 'react-hot-toast';
 
 const HomePage = lazy(() => import("../../pages/home/HomePage").then(m => ({ default: m.HomePage })));
 const ProductsPage = lazy(() => import("../../pages/products/ProductsPage"));
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <Suspense fallback={<div style={{ textAlign: 'center', padding: '2rem' }}>Yükleniyor...</div>}>
+      <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<HomePage />} />
 

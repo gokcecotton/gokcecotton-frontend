@@ -19,21 +19,10 @@ export const Navigation = () => {
 
   return (
     <nav className={css.nav}>
-      <div className={css.logoContainer}>
-        <Link to="/">
-          <img src={logo} alt="Gökçe Cotton Logo" className={css.logoImage} />
-        </Link>
+      <Link to="/products" className={css.logoContainer}>
+        <img src={logo} alt="Gökçe Cotton Logo" className={css.logoImage} />
         <span className={css.brandName}>GÖKÇE COTTON</span>
-      </div>
-
-      <div className={css.links}>
-        <NavLink to="/" className={({ isActive }) => isActive ? css.activeLink : css.link}>
-          Anasayfa
-        </NavLink>
-        <NavLink to="/products" className={({ isActive }) => isActive ? css.activeLink : css.link}>
-          Mağaza
-        </NavLink>
-      </div>
+      </Link>
 
       <div className={css.actions}>
         <Link to="/wishlist" className={css.actionIcon}>

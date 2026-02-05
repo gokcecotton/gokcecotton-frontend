@@ -34,7 +34,7 @@ export const OrdersPage = () => {
                                 </div>
                                 <div>
                                     <p className={css.label}>Toplam Tutar</p>
-                                    <p className={css.value}>${order.totalPrice.toFixed(2)}</p>
+                                    <p className={css.value}>{order.totalPrice.toFixed(2)} TL</p>
                                 </div>
                                 <div className={css.statusCol}>
                                     <p className={css.label}>Durum</p>
@@ -54,7 +54,7 @@ export const OrdersPage = () => {
                                         <p className={css.itemName}>
                                             {item.productId?.title || "Ürün"} <span>x{item.quantity}</span>
                                         </p>
-                                        <p className={css.itemPrice}>${item.price.toFixed(2)}</p>
+                                        <p className={css.itemPrice}>{item.price.toFixed(2)} TL</p>
                                     </div>
                                 ))}
                             </div>
