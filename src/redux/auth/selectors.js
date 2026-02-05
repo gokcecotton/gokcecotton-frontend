@@ -8,6 +8,8 @@ export const selectUserSurname = (state) => state.auth.user?.surname;
 export const selectUserEmail = (state) => state.auth.user?.email;
 export const selectUserGender = (state) => state.auth.user?.gender;
 export const selectUserBirthDate = (state) => state.auth.user?.birthDate;
+export const selectUserRole = (state) => state.auth.user?.role;
+export const selectIsAdmin = (state) => state.auth.user?.role === "admin";
 
 // AUTH STATUS
 export const selectToken = (state) => state.auth.token;

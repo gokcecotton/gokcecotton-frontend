@@ -1,0 +1,260 @@
+.container {
+    padding: 2rem 5%;
+    font-family: inherit;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #7d6d6c;
+}
+
+.header h1 {
+    color: #7d6d6c;
+}
+
+.headerActions {
+    display: flex;
+    gap: 1rem;
+}
+
+.addBtn,
+.catBtn {
+    background-color: #909482;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.addBtn:hover,
+.catBtn:hover {
+    background-color: #7a7e6e;
+}
+
+.catBtn {
+    background-color: #7d6d6c;
+}
+
+.formSection {
+    background-color: #fff9ef;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 3rem;
+    border: 2px solid #7d6d6c;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.fieldGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #7d6d6c;
+}
+
+.fieldGroup label {
+    font-weight: 600;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.input,
+.textarea {
+    padding: 0.8rem;
+    border: 2px solid #7d6d6c;
+    border-radius: 4px;
+    background-color: #fff;
+    font-family: inherit;
+    color: #7d6d6c;
+}
+
+.textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+}
+
+.submitBtn {
+    background-color: #7d6d6c;
+    color: #fff9ef;
+    border: none;
+    padding: 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submitBtn:hover {
+    background-color: #fff9ef;
+    color: #7d6d6c;
+    border: 2px solid #7d6d6c;
+}
+
+.listSection {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table th,
+.table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #7d6d6c33;
+}
+
+.table th {
+    background-color: #7d6d6c;
+    color: #fff;
+}
+
+.thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.editBtn,
+.deleteBtn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.editBtn {
+    background-color: #fff;
+    color: #7d6d6c;
+    border: 1px solid #7d6d6c;
+}
+
+.deleteBtn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+}
+
+.editBtn:hover {
+    background-color: #7d6d6c;
+    color: #fff;
+}
+
+.deleteBtn:hover {
+    background-color: #c0392b;
+}
+
+.imageManagement {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #7d6d6c;
+}
+
+.imageManagement label {
+    font-weight: 600;
+}
+
+.fileInput {
+    padding: 0.5rem;
+    border: 1px dashed #7d6d6c;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #7d6d6c33;
+    border-radius: 4px;
+}
+
+.imageItem {
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px;
+    background: white;
+}
+
+.imageItem img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+}
+
+.imageActions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.imageActions button {
+    background: #7d6d6c;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.delBtn {
+    background: #e74c3c !important;
+}
+
+.newImage {
+    border: 2px solid #909482;
+}
+
+.newBadge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #909482;
+    color: white;
+    font-size: 10px;
+    padding: 2px 4px;
+    border-radius: 2px;
+}

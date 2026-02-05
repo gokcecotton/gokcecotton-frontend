@@ -23,7 +23,7 @@ const handleRejected = (state, action) => {
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: { name: null, surname: null, email: null },
+    user: { name: null, surname: null, email: null, role: null },
     token: null,
     isLoggedIn: false,
     isLoading: false,
@@ -38,7 +38,7 @@ export const authSlice = createSlice({
   },
   reducers: {
     localLogout(state) {
-      state.user = { name: null, surname: null, email: null };
+      state.user = { name: null, surname: null, email: null, role: null };
       state.token = null;
       state.isLoggedIn = false;
       localStorage.removeItem("token");
@@ -61,6 +61,7 @@ export const authSlice = createSlice({
           name: user?.name || null,
           surname: user?.surname || null,
           email: user?.email || null,
+          role: user?.role || "user",
         };
 
         state.token = token || null;
@@ -81,6 +82,7 @@ export const authSlice = createSlice({
           name: user?.name || null,
           surname: user?.surname || null,
           email: user?.email || null,
+          role: user?.role || "user",
         };
 
         state.token = token || null;
@@ -93,7 +95,7 @@ export const authSlice = createSlice({
       // LOGOUT
       .addCase(logoutUser.pending, handlePending)
       .addCase(logoutUser.fulfilled, (state) => {
-        state.user = { name: null, surname: null, email: null };
+        state.user = { name: null, surname: null, email: null, role: null };
         state.token = null;
         state.isLoggedIn = false;
         state.isLoading = false;
@@ -114,6 +116,7 @@ export const authSlice = createSlice({
           name: user?.name || null,
           surname: user?.surname || null,
           email: user?.email || null,
+          role: user?.role || "user",
         };
 
         state.token = token || null;
@@ -122,7 +125,7 @@ export const authSlice = createSlice({
         state.error = null;
       })
       .addCase(refreshUser.rejected, (state, action) => {
-        state.user = { name: null, surname: null, email: null };
+        state.user = { name: null, surname: null, email: null, role: null };
         state.token = null;
         state.isLoggedIn = false;
         state.isRefreshing = false;

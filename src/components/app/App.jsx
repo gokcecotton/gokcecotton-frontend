@@ -5,6 +5,7 @@ import { SharedLayout } from "../SharedLayout/SharedLayout";
 import { refreshUser } from "../../redux/auth/operations";
 import RestrictedRoute from "../../routes/RestrictedRoute";
 import PrivateRoute from "../../routes/PrivateRoute";
+import AdminRoute from "../../routes/AdminRoute";
 import { Toaster } from 'react-hot-toast';
 
 const HomePage = lazy(() => import("../../pages/home/HomePage").then(m => ({ default: m.HomePage })));
@@ -16,6 +17,7 @@ const RegisterPage = lazy(() => import("../../pages/auth/RegisterPage"));
 const CheckoutPage = lazy(() => import("../../pages/checkout/CheckoutPage"));
 const OrdersPage = lazy(() => import("../../pages/orders/OrdersPage"));
 const WishlistPage = lazy(() => import("../../pages/wishlist/WishlistPage"));
+const AdminPage = lazy(() => import("../../pages/admin/AdminPage"));
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +62,12 @@ function App() {
             <PrivateRoute>
               <WishlistPage />
             </PrivateRoute>
+          } />
+
+          <Route path="admin" element={
+            <AdminRoute>
+              <AdminPage />
+            </AdminRoute>
           } />
         </Route>
       </Routes>

@@ -70,6 +70,7 @@ export const loginUser = createAsyncThunk(
 
       // Backend dönerken hem user hem token döner (accessToken veya token ismiyle gelebilir)
       const { user, accessToken, token } = response.data.data;
+      console.log("Login Response User Body:", user);
       const finalToken = accessToken || token;
 
       if (!user) {
@@ -136,6 +137,7 @@ export const refreshUser = createAsyncThunk(
         console.error("Error parsing stored user:", e);
       }
 
+      console.log("Refresh - User from LocalStorage:", user);
       return { user, token: finalToken };
     } catch (error) {
       if (error.response?.status !== 401) {
