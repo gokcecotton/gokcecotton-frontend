@@ -64,9 +64,9 @@
 .addBtn {
     margin: 0 1rem 1rem;
     padding: 0.8rem;
-    background-color: #333;
-    color: #fff;
-    border: none;
+    background-color: #7d6d6c;
+    color: #fff9ef;
+    border: 2px solid #7d6d6c;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 600;
@@ -74,5 +74,7 @@
 }
 
 .addBtn:hover {
-    background-color: #000;
+    background-color: #fff9ef;
+    color: #7d6d6c;
+    border: 2px solid #7d6d6c;
 }

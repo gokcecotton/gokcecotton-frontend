@@ -1,11 +1,11 @@
 .footer {
-    background-color: #1a1a1a;
+    background-color: #7d6d6c;
     color: #fff;
-    padding: 4rem 2rem 1rem;
+    padding: 10px;
     font-family: inherit;
 }
 
-.content {
+.content {  
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
@@ -15,9 +15,9 @@
 
 .section h4 {
     font-size: 1.1rem;
+    text-decoration: underline;
     margin-bottom: 1.5rem;
-    color: #d4af37;
-    /* Gold accent */
+    color: #fff;
 }
 
 .brand {
@@ -27,7 +27,7 @@
 }
 
 .description {
-    color: #aaa;
+    color: #fff;
     line-height: 1.6;
 }
 
@@ -38,7 +38,7 @@
 
 .list li {
     margin-bottom: 0.8rem;
-    color: #ccc;
+    color: #fff;
     cursor: pointer;
     transition: color 0.3s;
 }
@@ -48,10 +48,8 @@
 }
 
 .bottom {
-    margin-top: 4rem;
     text-align: center;
-    border-top: 1px solid #333;
-    padding-top: 2rem;
-    color: #777;
+    border-top: 1px solid #fff9ef;
+    color: #fff;
     font-size: 0.9rem;
 }

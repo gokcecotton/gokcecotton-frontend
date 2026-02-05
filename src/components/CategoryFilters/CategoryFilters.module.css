@@ -18,22 +18,24 @@
     text-align: left;
     padding: 0.8rem;
     background: none;
-    border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.95rem;
-    color: #555;
     transition: all 0.2s;
     margin-bottom: 0.5rem;
+    background-color: #fff;
+    color: #7d6d6c;
+    border: 2px solid #7d6d6c;
+    padding: 0.5rem 1rem;
 }
 
 .btn:hover {
-    background-color: #f0f0f0;
-    color: #000;
+    background-color: #7d6d6c;
+    color: #fff9ef;
 }
 
 .active {
-    background-color: #d4af37;
+    background-color: #909482;
     color: #fff !important;
     font-weight: 600;
 }
