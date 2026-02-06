@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, addProduct, updateProduct, deleteProduct } from "../../redux/products/operations";
 import { fetchCategories } from "../../redux/categories/operations";
 import { selectProducts, selectIsLoading } from "../../redux/products/selectors";
-import { selectCategories } from "../../redux/categories/selectors";
+import { selectCategories, selectIsLoading as selectIsCatLoading } from "../../redux/categories/selectors";
 import { addCategory } from "../../redux/categories/operations";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -25,7 +25,9 @@ export const AdminPage = () => {
     const products = useSelector(selectProducts);
     const categories = useSelector(selectCategories);
     const isLoading = useSelector(selectIsLoading);
+    const isCatLoading = useSelector(selectIsCatLoading);
     const fileInputRef = useRef(null);
+    const catFileInputRef = useRef(null);
 
     const [editingProduct, setEditingProduct] = useState(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -35,6 +37,8 @@ export const AdminPage = () => {
     const [currentImages, setCurrentImages] = useState([]); // Mevcut URL'ler
     const [newImageFiles, setNewImageFiles] = useState([]); // Yeni seçilen dosyalar
     const [previewUrls, setPreviewUrls] = useState([]); // Yeni dosyaların önizlemeleri
+    const [catImageFile, setCatImageFile] = useState(null);
+    const [catPreviewUrl, setCatPreviewUrl] = useState(null);
 
     useEffect(() => {
         dispatch(fetchProducts({ perPage: 100 }));
@@ -146,12 +150,35 @@ export const AdminPage = () => {
         setIsCatFormOpen(false);
     };
 
+    const slugify = (text) => {
+        const trMap = {
+            'ç': 'c', 'ğ': 'g', 'ı': 'i', 'ö': 'o', 'ş': 's', 'ü': 'u',
+            'Ç': 'c', 'Ğ': 'g', 'İ': 'i', 'Ö': 'o', 'Ş': 's', 'Ü': 'u'
+        };
+        return text.toLowerCase()
+            .replace(/[çğışüö]/g, (c) => trMap[c])
+            .replace(/[^a-z0-9]/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '');
+    };
+
     const handleCategorySubmit = (values, { resetForm }) => {
-        dispatch(addCategory(values))
+        const formData = new FormData();
+        formData.append("name", values.name);
+        formData.append("slug", slugify(values.name));
+        formData.append("description", values.description || "");
+        if (catImageFile) {
+            formData.append("image", catImageFile);
+        }
+
+        dispatch(addCategory(formData))
             .unwrap()
             .then(() => {
                 toast.success("Kategori başarıyla eklendi");
                 resetForm();
+                setCatImageFile(null);
+                setCatPreviewUrl(null);
+                if (catFileInputRef.current) catFileInputRef.current.value = "";
                 setIsCatFormOpen(false);
             })
             .catch((err) => toast.error(err));
@@ -207,7 +234,30 @@ export const AdminPage = () => {
                                     <label>Açıklama (Opsiyonel)</label>
                                     <Field as="textarea" name="description" className={css.textarea} />
                                 </div>
-                                <button type="submit" className={css.submitBtn} disabled={isLoading}>
+                                <div className={css.fieldGroup}>
+                                    <label>Kategori Görseli</label>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={catFileInputRef}
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                setCatImageFile(file);
+                                                setCatPreviewUrl(URL.createObjectURL(file));
+                                            }
+                                        }}
+                                        className={css.fileInput}
+                                    />
+                                    {catPreviewUrl && (
+                                        <div className={css.gallery}>
+                                            <div className={css.imageItem}>
+                                                <img src={catPreviewUrl} alt="cat-preview" />
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                                <button type="submit" className={css.submitBtn} disabled={isCatLoading}>
                                     Kategori Kaydet
                                 </button>
                             </Form>

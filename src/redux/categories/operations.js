@@ -8,7 +8,8 @@ export const fetchCategories = createAsyncThunk(
             const response = await axios.get("/categories");
             return response.data.data;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
+            const message = error.response?.data?.message || error.message;
+            return thunkAPI.rejectWithValue(message);
         }
     }
 );
@@ -18,11 +19,13 @@ export const addCategory = createAsyncThunk(
     async (categoryData, thunkAPI) => {
         try {
             const response = await axios.post("/categories", categoryData, {
-                headers: { 'Content-Type': 'application/json' }
+                withCredentials: true,
+                headers: { 'Content-Type': 'multipart/form-data' }
             });
             return response.data.data;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
+            const message = error.response?.data?.message || error.message;
+            return thunkAPI.rejectWithValue(message);
         }
     }
 );
