@@ -24,7 +24,7 @@ export const ProductsPage = () => {
     useEffect(() => {
         const params = {
             page,
-            categoryId: activeCategory || undefined,
+            category: activeCategory || undefined,
             search: searchTerm || undefined
         };
         dispatch(fetchProducts(params));

@@ -76,6 +76,9 @@ export const LoginPage = () => {
                         {formik.touched.password && formik.errors.password ? (
                             <div className={css.fieldError}>{formik.errors.password}</div>
                         ) : null}
+                        <Link to="/forgot-password" className={css.forgotPassword}>
+                            Şifremi Unuttum?
+                        </Link>
                     </div>
 
                     <button type="submit" className={css.submitBtn} disabled={isLoading}>

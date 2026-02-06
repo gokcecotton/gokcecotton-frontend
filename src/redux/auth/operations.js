@@ -119,25 +119,19 @@ export const refreshUser = createAsyncThunk(
         { withCredentials: true }
       );
 
-      const accessToken = response.data?.data?.accessToken;
-      const token = response.data?.data?.token;
+      const { user, accessToken, token } = response.data.data;
       const finalToken = accessToken || token;
 
       if (!finalToken) throw new Error("Access token not found from refresh");
+      if (!user) throw new Error("User data not found from refresh");
 
       // access token'ı header'a set et
       setAuthHeader(finalToken);
 
-      // Kullanıcı bilgisini localStorage'dan al
-      let user = null;
-      try {
-        const storedUser = localStorage.getItem("user");
-        user = storedUser ? JSON.parse(storedUser) : null;
-      } catch (e) {
-        console.error("Error parsing stored user:", e);
-      }
+      // localStorage'ı güncelle
+      localStorage.setItem("user", JSON.stringify(user));
 
-      console.log("Refresh - User from LocalStorage:", user);
+      console.log("Refresh - User from Backend:", user);
       return { user, token: finalToken };
     } catch (error) {
       if (error.response?.status !== 401) {

@@ -68,7 +68,8 @@
     flex: 1;
 }
 
-.error, .fieldError {
+.error,
+.fieldError {
     color: #e74c3c;
     font-size: 0.8rem;
     margin-top: -0.2rem;
@@ -110,4 +111,17 @@
 
 .switch a:hover {
     text-decoration: underline;
+}
+
+.forgotPassword {
+    align-self: flex-end;
+    font-size: 0.85rem;
+    color: #777;
+    text-decoration: none;
+    margin-top: 0.2rem;
+    transition: color 0.3s;
+}
+
+.forgotPassword:hover {
+    color: #d4af37;
 }

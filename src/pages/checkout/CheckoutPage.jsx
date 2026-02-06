@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../redux/orders/operations";
 import { selectCartItems } from "../../redux/cart/selectors";
+import { selectUser } from "../../redux/auth/selectors";
 import css from "./CheckoutPage.module.css";
 
 export const CheckoutPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const cartItems = useSelector(selectCartItems);
+    const user = useSelector(selectUser);
 
     const [formData, setFormData] = useState({
         street: "",
@@ -20,6 +22,7 @@ export const CheckoutPage = () => {
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [selectedAddressIndex, setSelectedAddressIndex] = useState(null);
 
     useEffect(() => {
         if (cartItems.length === 0 && !isSubmitting) {
@@ -29,6 +32,18 @@ export const CheckoutPage = () => {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        setSelectedAddressIndex(null); // Manuel değişiklik yapılırsa seçimi kaldır
+    };
+
+    const handleSelectAddress = (addr, index) => {
+        setSelectedAddressIndex(index);
+        setFormData({
+            ...formData,
+            street: addr.address,
+            city: addr.city,
+            contactNumber: addr.telephone,
+            // zip alanı user.addresses içinde yoksa boş kalabilir veya backend'e eklenebilir
+        });
     };
 
     const handleSubmit = async (e) => {
@@ -39,7 +54,7 @@ export const CheckoutPage = () => {
             address: {
                 street: formData.street,
                 city: formData.city,
-                zip: formData.zip,
+                zip: formData.zip || "00000",
                 country: formData.country,
             },
             contactNumber: formData.contactNumber,
@@ -75,6 +90,24 @@ export const CheckoutPage = () => {
                 <div className={css.billing}>
                     <section className={css.section}>
                         <h3>Teslimat Adresi</h3>
+
+                        {user?.addresses?.length > 0 && (
+                            <div className={css.addressSelector}>
+                                <p style={{ marginBottom: '1rem', fontSize: '0.9rem', color: '#666' }}>Kayıtlı Adreslerimden Seç:</p>
+                                {user.addresses.map((addr, idx) => (
+                                    <div
+                                        key={idx}
+                                        className={`${css.addressOption} ${selectedAddressIndex === idx ? css.selectedOption : ''}`}
+                                        onClick={() => handleSelectAddress(addr, idx)}
+                                    >
+                                        <span className={css.addressOptionTitle}>{addr.title}</span>
+                                        <span className={css.addressOptionDetail}>{addr.address} - {addr.district} / {addr.city}</span>
+                                        <span className={css.addressOptionDetail}>📞 {addr.telephone}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
                         <div className={css.field}>
                             <label>Sokak/Cadde Adresi</label>
                             <input type="text" name="street" value={formData.street} onChange={handleChange} required />
@@ -85,8 +118,8 @@ export const CheckoutPage = () => {
                                 <input type="text" name="city" value={formData.city} onChange={handleChange} required />
                             </div>
                             <div className={css.field}>
-                                <label>Posta Kodu</label>
-                                <input type="text" name="zip" value={formData.zip} onChange={handleChange} required />
+                                <label>Posta Kodu (Opsiyonel)</label>
+                                <input type="text" name="zip" value={formData.zip} onChange={handleChange} />
                             </div>
                         </div>
                         <div className={css.field}>

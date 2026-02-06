@@ -14,8 +14,9 @@ const ProductDetailsPage = lazy(() => import("../../pages/products/ProductDetail
 const CartPage = lazy(() => import("../../pages/cart/CartPage"));
 const LoginPage = lazy(() => import("../../pages/auth/LoginPage"));
 const RegisterPage = lazy(() => import("../../pages/auth/RegisterPage"));
+const ForgotPasswordPage = lazy(() => import("../../pages/auth/ForgotPasswordPage"));
+const ResetPasswordPage = lazy(() => import("../../pages/auth/ResetPasswordPage"));
 const CheckoutPage = lazy(() => import("../../pages/checkout/CheckoutPage"));
-const OrdersPage = lazy(() => import("../../pages/orders/OrdersPage"));
 const ProfilePage = lazy(() => import("../../pages/profile/ProfilePage"));
 const WishlistPage = lazy(() => import("../../pages/wishlist/WishlistPage"));
 const AdminPage = lazy(() => import("../../pages/admin/AdminPage"));
@@ -48,6 +49,27 @@ function App() {
               <RegisterPage />
             </RestrictedRoute>
           } />
+          <Route path="forgot-password" element={
+            <RestrictedRoute redirectTo="/products">
+              <ForgotPasswordPage />
+            </RestrictedRoute>
+          } />
+          <Route path="reset-password" element={
+            <RestrictedRoute redirectTo="/products">
+              <ResetPasswordPage />
+            </RestrictedRoute>
+          } />
+          {/* Hatalı link yapılarını yakalamak için ek rota */}
+          <Route path="api/auth/reset-password" element={
+            <RestrictedRoute redirectTo="/products">
+              <ResetPasswordPage />
+            </RestrictedRoute>
+          } />
+          <Route path="api/auth//reset-password" element={
+            <RestrictedRoute redirectTo="/products">
+              <ResetPasswordPage />
+            </RestrictedRoute>
+          } />
 
           <Route path="checkout" element={
             <PrivateRoute>
@@ -70,6 +92,7 @@ function App() {
               <AdminPage />
             </AdminRoute>
           } />
+          <Route path="*" element={<div style={{ textAlign: 'center', padding: '5rem' }}><h2>404 - Sayfa Bulunamadı</h2><p>Aradığınız sayfa mevcut değil veya yer değiştirmiş.</p></div>} />
         </Route>
       </Routes>
     </Suspense>

@@ -17,6 +17,7 @@ export const ProfilePage = () => {
     const isOrdersLoading = useSelector(selectIsOrdersLoading);
 
     const [activeTab, setActiveTab] = useState("info");
+    const [isAddingAddress, setIsAddingAddress] = useState(false);
 
     useEffect(() => {
         if (activeTab === "orders") {
@@ -40,7 +41,8 @@ export const ProfilePage = () => {
     });
 
     const addressSchema = Yup.object().shape({
-        phone: Yup.string().required("Telefon numarası gerekli"),
+        title: Yup.string().required("Adres başlığı gerekli (örn: Ev, İş)"),
+        telephone: Yup.string().required("Telefon numarası gerekli"),
         city: Yup.string().required("Şehir gerekli"),
         district: Yup.string().required("İlçe gerekli"),
         address: Yup.string().required("Açık adres gerekli"),
@@ -69,10 +71,23 @@ export const ProfilePage = () => {
             .catch((err) => toast.error(err));
     };
 
-    const handleAddressSubmit = (values) => {
-        dispatch(updateUser({ id: user._id, data: values }))
+    const handleAddressSubmit = (values, { resetForm }) => {
+        const newAddresses = [...(user.addresses || []), values];
+        dispatch(updateUser({ id: user._id, data: { addresses: newAddresses } }))
             .unwrap()
-            .then(() => toast.success("Adres bilgileri güncellendi"))
+            .then(() => {
+                toast.success("Adres eklendi");
+                resetForm();
+                setIsAddingAddress(false);
+            })
+            .catch((err) => toast.error(err));
+    };
+
+    const handleDeleteAddress = (index) => {
+        const newAddresses = user.addresses.filter((_, i) => i !== index);
+        dispatch(updateUser({ id: user._id, data: { addresses: newAddresses } }))
+            .unwrap()
+            .then(() => toast.success("Adres silindi"))
             .catch((err) => toast.error(err));
     };
 
@@ -155,48 +170,99 @@ export const ProfilePage = () => {
             case "address":
                 return (
                     <div className={css.section}>
-                        <h2 className={css.sectionTitle}>Adres Bilgileri</h2>
-                        <Formik
-                            initialValues={{
-                                phone: user?.phone || "",
-                                city: user?.city || "",
-                                district: user?.district || "",
-                                address: user?.address || ""
-                            }}
-                            validationSchema={addressSchema}
-                            onSubmit={handleAddressSubmit}
-                            enableReinitialize
-                        >
-                            {() => (
-                                <Form className={css.form}>
-                                    <div className={css.fieldGroup}>
-                                        <label>Telefon</label>
-                                        <Field name="phone" className={css.input} placeholder="05xx xxx xx xx" />
-                                        <ErrorMessage name="phone" component="div" className={css.error} />
-                                    </div>
-                                    <div className={css.row}>
+                        <h2 className={css.sectionTitle}>Adres Bilgilerim</h2>
+
+                        {!isAddingAddress ? (
+                            <>
+                                <button
+                                    className={css.addBtnToggle}
+                                    onClick={() => setIsAddingAddress(true)}
+                                >
+                                    + Yeni Adres Ekle
+                                </button>
+
+                                <div className={css.addressList}>
+                                    {(!user?.addresses || user.addresses.length === 0) ? (
+                                        <p>Henüz bir adres eklemediniz.</p>
+                                    ) : (
+                                        user.addresses.map((addr, index) => (
+                                            <div key={index} className={css.addressCard}>
+                                                <div className={css.addressCardHeader}>
+                                                    <h3 className={css.addressCardTitle}>{addr.title}</h3>
+                                                    <button
+                                                        className={css.deleteBtn}
+                                                        onClick={() => handleDeleteAddress(index)}
+                                                    >
+                                                        Sil
+                                                    </button>
+                                                </div>
+                                                <div className={css.addressInfo}>
+                                                    <p className={css.addressText}>{addr.address}</p>
+                                                    <p className={css.addressText}>{addr.district} / {addr.city}</p>
+                                                    <p className={css.addressPhone}>📞 {addr.telephone}</p>
+                                                </div>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </>
+                        ) : (
+                            <Formik
+                                initialValues={{
+                                    title: "",
+                                    telephone: user?.telephone || "",
+                                    city: "",
+                                    district: "",
+                                    address: ""
+                                }}
+                                validationSchema={addressSchema}
+                                onSubmit={handleAddressSubmit}
+                            >
+                                {() => (
+                                    <Form className={css.form}>
                                         <div className={css.fieldGroup}>
-                                            <label>Şehir</label>
-                                            <Field name="city" className={css.input} />
-                                            <ErrorMessage name="city" component="div" className={css.error} />
+                                            <label>Adres Başlığı</label>
+                                            <Field name="title" className={css.input} placeholder="Örn: Ev, İş" />
+                                            <ErrorMessage name="title" component="div" className={css.error} />
                                         </div>
                                         <div className={css.fieldGroup}>
-                                            <label>İlçe</label>
-                                            <Field name="district" className={css.input} />
-                                            <ErrorMessage name="district" component="div" className={css.error} />
+                                            <label>Telefon</label>
+                                            <Field name="telephone" className={css.input} placeholder="05xx xxx xx xx" />
+                                            <ErrorMessage name="telephone" component="div" className={css.error} />
                                         </div>
-                                    </div>
-                                    <div className={css.fieldGroup}>
-                                        <label>Açık Adres</label>
-                                        <Field as="textarea" name="address" className={`${css.input} ${css.textarea}`} />
-                                        <ErrorMessage name="address" component="div" className={css.error} />
-                                    </div>
-                                    <button type="submit" className={css.submitBtn} disabled={isLoading}>
-                                        Adres Bilgilerini Kaydet
-                                    </button>
-                                </Form>
-                            )}
-                        </Formik>
+                                        <div className={css.row}>
+                                            <div className={css.fieldGroup}>
+                                                <label>Şehir</label>
+                                                <Field name="city" className={css.input} />
+                                                <ErrorMessage name="city" component="div" className={css.error} />
+                                            </div>
+                                            <div className={css.fieldGroup}>
+                                                <label>İlçe</label>
+                                                <Field name="district" className={css.input} />
+                                                <ErrorMessage name="district" component="div" className={css.error} />
+                                            </div>
+                                        </div>
+                                        <div className={css.fieldGroup}>
+                                            <label>Açık Adres</label>
+                                            <Field as="textarea" name="address" className={`${css.input} ${css.textarea}`} />
+                                            <ErrorMessage name="address" component="div" className={css.error} />
+                                        </div>
+                                        <div className={css.formFooter}>
+                                            <button type="submit" className={css.submitBtn} disabled={isLoading}>
+                                                Adresi Kaydet
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className={css.cancelBtn}
+                                                onClick={() => setIsAddingAddress(false)}
+                                            >
+                                                İptal
+                                            </button>
+                                        </div>
+                                    </Form>
+                                )}
+                            </Formik>
+                        )}
                     </div>
                 );
             case "orders":
