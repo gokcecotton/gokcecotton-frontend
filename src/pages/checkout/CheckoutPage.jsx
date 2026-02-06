@@ -53,7 +53,7 @@ export const CheckoutPage = () => {
                 if (result.payload?.paymentMethod === "Credit Card" && result.payload.paymentUrl) {
                     window.location.href = result.payload.paymentUrl;
                 } else {
-                    navigate("/orders");
+                    navigate("/profile");
                 }
             }
         } finally {

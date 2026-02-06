@@ -42,7 +42,7 @@ export const Navigation = () => {
         {isLoggedIn ? (
           <div className={css.userMenu}>
             <span className={css.welcomeText}>Hoşgeldiniz, {user?.name}</span>
-            <Link to="/orders" className={css.profileLink}>Siparişlerim</Link>
+            <Link to="/profile" className={css.profileLink}>Profilim</Link>
             <button onClick={handleLogout} className={css.logoutBtn}>Çıkış Yap</button>
           </div>
         ) : (

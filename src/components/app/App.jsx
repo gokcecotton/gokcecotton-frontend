@@ -16,6 +16,7 @@ const LoginPage = lazy(() => import("../../pages/auth/LoginPage"));
 const RegisterPage = lazy(() => import("../../pages/auth/RegisterPage"));
 const CheckoutPage = lazy(() => import("../../pages/checkout/CheckoutPage"));
 const OrdersPage = lazy(() => import("../../pages/orders/OrdersPage"));
+const ProfilePage = lazy(() => import("../../pages/profile/ProfilePage"));
 const WishlistPage = lazy(() => import("../../pages/wishlist/WishlistPage"));
 const AdminPage = lazy(() => import("../../pages/admin/AdminPage"));
 
@@ -53,9 +54,9 @@ function App() {
               <CheckoutPage />
             </PrivateRoute>
           } />
-          <Route path="orders" element={
+          <Route path="profile" element={
             <PrivateRoute>
-              <OrdersPage />
+              <ProfilePage />
             </PrivateRoute>
           } />
           <Route path="wishlist" element={
