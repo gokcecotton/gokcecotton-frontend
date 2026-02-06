@@ -3,6 +3,14 @@
     margin: 0 auto;
     padding: 3rem 2rem;
     min-height: 80vh;
+    font-family: "Playwrite NZ Basic", cursive;
+}
+
+.container input,
+.container select,
+.container textarea,
+.container button {
+    font-family: "Playwrite NZ Basic", cursive;
 }
 
 .header {
@@ -42,26 +50,26 @@
 .menuItem {
     padding: 1rem 1.5rem;
     border-radius: 8px;
-    background: none;
-    border: none;
     text-align: left;
     font-size: 1rem;
     font-weight: 500;
-    color: #666;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 1rem;
+    background-color: #fff;
+    color: #7d6d6c;
+    border: 2px solid #7d6d6c;
 }
 
 .menuItem:hover {
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #7d6d6c;
+    color: #fff9ef;
 }
 
 .activeItem {
-    background-color: #333;
+    background-color: #909482 !important;
     color: #fff !important;
 }
 
@@ -75,10 +83,11 @@
 .sectionTitle {
     font-size: 1.8rem;
     margin-bottom: 2rem;
-    color: #333;
+    color: #7d6d6c;
     font-weight: 600;
-    border-left: 4px solid #333;
+    border-left: 4px solid #7d6d6c;
     padding-left: 1rem;
+
 }
 
 .form {
@@ -109,7 +118,7 @@
 
 .input:focus {
     outline: none;
-    border-color: #333;
+    border-color: #fff9ef;
 }
 
 .input:disabled {
@@ -131,9 +140,9 @@
 
 .submitBtn {
     padding: 1rem 2rem;
-    background-color: #333;
-    color: #fff;
-    border: none;
+    background-color: #7d6d6c;
+    color: #fff9ef;
+    border: 2px solid #7d6d6c;
     border-radius: 6px;
     font-size: 1rem;
     font-weight: 600;
@@ -145,6 +154,9 @@
 
 .submitBtn:hover {
     opacity: 0.9;
+    background-color: #fff9ef;
+    color: #7d6d6c;
+    border: 2px solid #7d6d6c;
 }
 
 .submitBtn:disabled {
@@ -201,11 +213,30 @@
     font-weight: 600;
 }
 
-.status_pending { background: #fef9e7; color: #f1c40f; }
-.status_processing { background: #ebf5fb; color: #3498db; }
-.status_shipped { background: #eafaf1; color: #2ecc71; }
-.status_delivered { background: #d4af37; color: #fff; }
-.status_cancelled { background: #f9ebeb; color: #e74c3c; }
+.status_pending {
+    background: #fef9e7;
+    color: #f1c40f;
+}
+
+.status_processing {
+    background: #ebf5fb;
+    color: #3498db;
+}
+
+.status_shipped {
+    background: #eafaf1;
+    color: #2ecc71;
+}
+
+.status_delivered {
+    background: #d4af37;
+    color: #fff;
+}
+
+.status_cancelled {
+    background: #f9ebeb;
+    color: #e74c3c;
+}
 
 .orderItems {
     padding: 1.2rem;
@@ -226,6 +257,7 @@
     .layout {
         grid-template-columns: 1fr;
     }
+
     .sidebar {
         position: static;
     }
@@ -235,6 +267,7 @@
     .row {
         grid-template-columns: 1fr;
     }
+
     .orderHeader {
         grid-template-columns: 1fr 1fr;
     }
