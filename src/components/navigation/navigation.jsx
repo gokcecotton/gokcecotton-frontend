@@ -34,15 +34,15 @@ export const Navigation = () => {
           <span>Sepetim</span>
           {cartCount > 0 && <span className={css.badge}>{cartCount}</span>}
         </Link>
-        {isAdmin && (
-          <Link to="/admin" className={css.adminLink}>
-            Yönetim
-          </Link>
-        )}
         {isLoggedIn ? (
           <div className={css.userMenu}>
             <span className={css.welcomeText}>Hoşgeldiniz, {user?.name}</span>
             <Link to="/profile" className={css.profileLink}>Profilim</Link>
+            {isAdmin && (
+              <Link to="/admin" className={css.adminLink}>
+                Yönetim
+              </Link>
+            )}
             <button onClick={handleLogout} className={css.logoutBtn}>Çıkış Yap</button>
           </div>
         ) : (
