@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCart, addToCart, updateCartItem, removeCartItem, clearCart } from "./operations";
+import { fetchCart, addItem, updateCartItem, removeCartItem, clearCart, updateGiftWrap } from "./operations";
 
 const initialState = {
     items: [],
+    isGiftWrap: false,
     isLoading: false,
     error: null,
 };
@@ -19,10 +20,16 @@ const cartSlice = createSlice({
             .addCase(fetchCart.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.items = action.payload.items;
+                state.isGiftWrap = action.payload.isGiftWrap;
             })
             .addCase(fetchCart.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
+            })
+            // Update Gift Wrap
+            .addCase(updateGiftWrap.fulfilled, (state, action) => {
+                state.items = action.payload.items;
+                state.isGiftWrap = action.payload.isGiftWrap;
             })
             .addCase(addToCart.fulfilled, (state, action) => {
                 state.items = action.payload.items;

@@ -58,10 +58,21 @@ export const clearCart = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             await axios.delete("/cart");
-            return null;
+            return [];
         } catch (error) {
-            const message = error.response?.data?.message || error.message;
-            return thunkAPI.rejectWithValue(message);
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
+export const updateGiftWrap = createAsyncThunk(
+    "cart/updateGiftWrap",
+    async (isGiftWrap, thunkAPI) => {
+        try {
+            const response = await axios.patch("/cart/gift-wrap", { isGiftWrap });
+            return response.data.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message);
         }
     }
 );

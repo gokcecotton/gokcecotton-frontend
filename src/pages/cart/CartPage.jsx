@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchCart, updateCartItem, removeCartItem, clearCart } from "../../redux/cart/operations";
+import { fetchCart, updateCartItem, removeCartItem, clearCart, updateGiftWrap } from "../../redux/cart/operations";
 import { selectCartItems, selectIsLoading } from "../../redux/cart/selectors";
 import css from "./CartPage.module.css";
 import noImage from "../../assets/logo-yazili.png";
@@ -10,6 +10,7 @@ export const CartPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const cartItems = useSelector(selectCartItems);
+    const isGiftWrap = useSelector(state => state.cart.isGiftWrap);
     const isLoading = useSelector(selectIsLoading);
 
     useEffect(() => {
@@ -36,6 +37,10 @@ export const CartPage = () => {
         return acc + (itemPrice * itemQty);
     }, 0);
 
+    const handleGiftWrapChange = (checked) => {
+        dispatch(updateGiftWrap(checked));
+    };
+
     if (isLoading) {
         return <div className={css.loading}>Sepetiniz yükleniyor...</div>;
     }
@@ -53,6 +58,7 @@ export const CartPage = () => {
                 <div className={css.container}>
                     <div className={css.itemsList}>
                         {cartItems.map((item) => {
+                            // ... existing item rendering ...
                             const product = item.productId;
                             if (!product) return null;
 
@@ -90,13 +96,33 @@ export const CartPage = () => {
                             <span>Ara Toplam</span>
                             <span>{totalPrice.toFixed(2)} TL</span>
                         </div>
+
+                        <div className={css.giftWrapRow} style={{ margin: '10px 0', padding: '10px 0', borderTop: '1px solid #eee', borderBottom: '1px solid #eee' }}>
+                            <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '10px', fontSize: '0.9rem' }}>
+                                <input
+                                    type="checkbox"
+                                    checked={isGiftWrap}
+                                    onChange={(e) => handleGiftWrapChange(e.target.checked)}
+                                    style={{ width: '16px', height: '16px' }}
+                                />
+                                <span>Hediye Paketi (+50 TL)</span>
+                            </label>
+                        </div>
+
+                        {isGiftWrap && (
+                            <div className={css.summaryRow}>
+                                <span>Hediye Paketi</span>
+                                <span>50.00 TL</span>
+                            </div>
+                        )}
+
                         <div className={css.summaryRow}>
                             <span>Kargo</span>
                             <span>Bir sonraki adımda hesaplanacak</span>
                         </div>
                         <div className={`${css.summaryRow} ${css.total}`}>
                             <span>Toplam</span>
-                            <span>{totalPrice.toFixed(2)} TL</span>
+                            <span>{(totalPrice + (isGiftWrap ? 50 : 0)).toFixed(2)} TL</span>
                         </div>
                         <button className={css.checkoutBtn} onClick={() => navigate("/checkout")}>
                             Ödeme Adımına Geç

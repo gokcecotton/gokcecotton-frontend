@@ -11,6 +11,7 @@ export const CheckoutPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const cartItems = useSelector(selectCartItems);
+    const isGiftWrap = useSelector(state => state.cart.isGiftWrap);
     const user = useSelector(selectUser);
 
     const [formData, setFormData] = useState({
@@ -24,7 +25,6 @@ export const CheckoutPage = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [selectedAddressIndex, setSelectedAddressIndex] = useState(null);
-    const [isGiftWrap, setIsGiftWrap] = useState(false);
 
     const [cardData, setCardData] = useState({
         cardHolderName: "",
@@ -78,7 +78,6 @@ export const CheckoutPage = () => {
             contactNumber: formData.contactNumber,
             paymentMethod: formData.paymentMethod,
             cardDetails: formData.paymentMethod === "Credit Card" ? cardData : undefined,
-            isGiftWrap: isGiftWrap,
         };
 
         try {
@@ -282,12 +281,7 @@ export const CheckoutPage = () => {
 
                     <div className={css.giftWrapSection} style={{ padding: '10px 0', borderTop: '1px solid #eee', borderBottom: '1px solid #eee', margin: '10px 0' }}>
                         <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '10px' }}>
-                            <input
-                                type="checkbox"
-                                checked={isGiftWrap}
-                                onChange={(e) => setIsGiftWrap(e.target.checked)}
-                                style={{ width: '18px', height: '18px' }}
-                            />
+
                             <span>Hediye Paketi İstiyorum (+50.00 TL)</span>
                         </label>
                     </div>
