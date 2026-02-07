@@ -62,6 +62,8 @@ export const authSlice = createSlice({
           surname: user?.surname || null,
           email: user?.email || null,
           role: user?.role || "user",
+          telephone: user?.telephone || null,
+          addresses: user?.addresses || [],
         };
 
         state.token = token || null;
@@ -83,6 +85,8 @@ export const authSlice = createSlice({
           surname: user?.surname || null,
           email: user?.email || null,
           role: user?.role || "user",
+          telephone: user?.telephone || null,
+          addresses: user?.addresses || [],
         };
 
         state.token = token || null;
@@ -117,6 +121,8 @@ export const authSlice = createSlice({
           surname: user?.surname || null,
           email: user?.email || null,
           role: user?.role || "user",
+          telephone: user?.telephone || null,
+          addresses: user?.addresses || [],
         };
 
         state.token = token || null;

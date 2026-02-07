@@ -59,22 +59,22 @@
 
 .actionIcon {
   text-decoration: none;
-  color: #333;
+  color: #7d6d6c;
   font-size: 0.95rem;
 }
 
 .cartContainer {
   position: relative;
   text-decoration: none;
-  color: #333;
+  color: #7d6d6c;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .badge {
-  background-color: #d4af37;
-  color: #fff;
+  background-color: #7d6d6c;
+  color: #fff9ef;
   font-size: 0.75rem;
   padding: 2px 6px;
   border-radius: 50%;
@@ -112,7 +112,9 @@
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Playwrite NZ Basic", cursive;
   transition: all 0.3s;
 }
 
@@ -123,22 +125,23 @@
 
 .profileLink {
   text-decoration: none;
-  color: #333;
+  color: #7d6d6c;
   font-weight: 500;
 }
 
 .welcomeText {
   font-weight: 600;
-  color: #333;
+  color: #7d6d6c;
   font-size: 0.95rem;
 }
 
 .adminLink {
   text-decoration: none;
-  color: #909482;
+  background-color: #fff9ef;
+  color: #7d6d6c;
   font-weight: 600;
   padding: 0.5rem 1rem;
-  border: 2px solid #909482;
+  border: 2px solid #7d6d6c;
   border-radius: 4px;
   transition: all 0.3s;
 }

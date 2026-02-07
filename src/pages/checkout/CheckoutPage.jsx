@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../redux/orders/operations";
 import { selectCartItems } from "../../redux/cart/selectors";
 import { selectUser } from "../../redux/auth/selectors";
+import toast from "react-hot-toast";
 import css from "./CheckoutPage.module.css";
 
 export const CheckoutPage = () => {
@@ -23,6 +24,15 @@ export const CheckoutPage = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [selectedAddressIndex, setSelectedAddressIndex] = useState(null);
+    const [isGiftWrap, setIsGiftWrap] = useState(false);
+
+    const [cardData, setCardData] = useState({
+        cardHolderName: "",
+        cardNumber: "",
+        expireMonth: "",
+        expireYear: "",
+        cvc: ""
+    });
 
     useEffect(() => {
         if (cartItems.length === 0 && !isSubmitting) {
@@ -32,7 +42,15 @@ export const CheckoutPage = () => {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        setSelectedAddressIndex(null); // Manuel değişiklik yapılırsa seçimi kaldır
+        if (selectedAddressIndex !== null) {
+            // If editing while address selected, maybe clear selection? 
+            // Or just let them edit the form data which acts as "new address" data if we were saving it.
+            // For now, let's keep logic simple.
+        }
+    };
+
+    const handleCardChange = (e) => {
+        setCardData({ ...cardData, [e.target.name]: e.target.value });
     };
 
     const handleSelectAddress = (addr, index) => {
@@ -59,18 +77,23 @@ export const CheckoutPage = () => {
             },
             contactNumber: formData.contactNumber,
             paymentMethod: formData.paymentMethod,
+            cardDetails: formData.paymentMethod === "Credit Card" ? cardData : undefined,
+            isGiftWrap: isGiftWrap,
         };
 
         try {
             const result = await dispatch(createOrder(orderData));
 
             if (createOrder.fulfilled.match(result)) {
-                if (result.payload?.paymentMethod === "Credit Card" && result.payload.paymentUrl) {
-                    window.location.href = result.payload.paymentUrl;
-                } else {
-                    navigate("/profile");
-                }
+                // Direct payment success or other methods
+                toast.success("Siparişiniz başarıyla alındı!");
+                navigate("/profile");
+            } else {
+                toast.error(result.payload || "Sipariş oluşturulurken bir hata oluştu.");
             }
+        } catch (error) {
+            toast.error("Beklenmedik bir hata oluştu.");
+            console.error(error);
         } finally {
             setIsSubmitting(false);
         }
@@ -105,27 +128,41 @@ export const CheckoutPage = () => {
                                         <span className={css.addressOptionDetail}>📞 {addr.telephone}</span>
                                     </div>
                                 ))}
+                                <div
+                                    className={`${css.addressOption} ${selectedAddressIndex === null ? css.selectedOption : ''}`}
+                                    onClick={() => {
+                                        setSelectedAddressIndex(null);
+                                        setFormData({ ...formData, street: "", city: "", zip: "", contactNumber: "" });
+                                    }}
+                                >
+                                    <span className={css.addressOptionTitle}>+ Yeni Adres Gir</span>
+                                </div>
                             </div>
                         )}
 
-                        <div className={css.field}>
-                            <label>Sokak/Cadde Adresi</label>
-                            <input type="text" name="street" value={formData.street} onChange={handleChange} required />
-                        </div>
-                        <div className={css.row}>
-                            <div className={css.field}>
-                                <label>Şehir</label>
-                                <input type="text" name="city" value={formData.city} onChange={handleChange} required />
-                            </div>
-                            <div className={css.field}>
-                                <label>Posta Kodu (Opsiyonel)</label>
-                                <input type="text" name="zip" value={formData.zip} onChange={handleChange} />
-                            </div>
-                        </div>
-                        <div className={css.field}>
-                            <label>İletişim Numarası</label>
-                            <input type="text" name="contactNumber" value={formData.contactNumber} onChange={handleChange} required />
-                        </div>
+                        {/* Show form if no address selected (New Address mode) or user has no addresses */}
+                        {(selectedAddressIndex === null || user?.addresses?.length === 0) && (
+                            <>
+                                <div className={css.field}>
+                                    <label>Sokak/Cadde Adresi</label>
+                                    <input type="text" name="street" value={formData.street} onChange={handleChange} required />
+                                </div>
+                                <div className={css.row}>
+                                    <div className={css.field}>
+                                        <label>Şehir</label>
+                                        <input type="text" name="city" value={formData.city} onChange={handleChange} required />
+                                    </div>
+                                    <div className={css.field}>
+                                        <label>Posta Kodu (Opsiyonel)</label>
+                                        <input type="text" name="zip" value={formData.zip} onChange={handleChange} />
+                                    </div>
+                                </div>
+                                <div className={css.field}>
+                                    <label>İletişim Numarası</label>
+                                    <input type="text" name="contactNumber" value={formData.contactNumber} onChange={handleChange} required />
+                                </div>
+                            </>
+                        )}
                     </section>
 
                     <section className={css.section}>
@@ -141,16 +178,73 @@ export const CheckoutPage = () => {
                                 />
                                 <span>Kredi Kartı (Iyzico ile Güvenli)</span>
                             </label>
-                            <label className={css.radio}>
-                                <input
-                                    type="radio"
-                                    name="paymentMethod"
-                                    value="Cash on Delivery"
-                                    checked={formData.paymentMethod === "Cash on Delivery"}
-                                    onChange={handleChange}
-                                />
-                                <span>Kapıda Ödeme</span>
-                            </label>
+
+                            {formData.paymentMethod === "Credit Card" && (
+                                <div className={css.creditCardForm}>
+                                    <div className={css.field}>
+                                        <label>Kart Üzerindeki İsim</label>
+                                        <input
+                                            type="text"
+                                            name="cardHolderName"
+                                            value={cardData.cardHolderName}
+                                            onChange={handleCardChange}
+                                            placeholder="Ad Soyad"
+                                            required
+                                        />
+                                    </div>
+                                    <div className={css.field}>
+                                        <label>Kart Numarası</label>
+                                        <input
+                                            type="text"
+                                            name="cardNumber"
+                                            value={cardData.cardNumber}
+                                            onChange={handleCardChange}
+                                            placeholder="0000 0000 0000 0000"
+                                            maxLength="19"
+                                            required
+                                        />
+                                    </div>
+                                    <div className={css.row}>
+                                        <div className={css.field}>
+                                            <label>Ay</label>
+                                            <input
+                                                type="text"
+                                                name="expireMonth"
+                                                value={cardData.expireMonth}
+                                                onChange={handleCardChange}
+                                                placeholder="MM"
+                                                maxLength="2"
+                                                required
+                                            />
+                                        </div>
+                                        <div className={css.field}>
+                                            <label>Yıl</label>
+                                            <input
+                                                type="text"
+                                                name="expireYear"
+                                                value={cardData.expireYear}
+                                                onChange={handleCardChange}
+                                                placeholder="YY"
+                                                maxLength="2"
+                                                required
+                                            />
+                                        </div>
+                                        <div className={css.field}>
+                                            <label>CVC</label>
+                                            <input
+                                                type="text"
+                                                name="cvc"
+                                                value={cardData.cvc}
+                                                onChange={handleCardChange}
+                                                placeholder="123"
+                                                maxLength="3"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
                             <label className={css.radio}>
                                 <input
                                     type="radio"
@@ -159,8 +253,18 @@ export const CheckoutPage = () => {
                                     checked={formData.paymentMethod === "Bank Transfer"}
                                     onChange={handleChange}
                                 />
-                                <span>Banka Havalesi</span>
+                                <span>EFT / Havale</span>
                             </label>
+
+                            {formData.paymentMethod === "Bank Transfer" && (
+                                <div className={css.bankTransferInfo} style={{ marginTop: '10px', padding: '10px', backgroundColor: '#f9f9f9', borderRadius: '5px', border: '1px solid #eee' }}>
+                                    <p style={{ fontWeight: 'bold', marginBottom: '5px' }}>Banka Hesap Bilgileri:</p>
+                                    <p>IBAN: <strong>TR11 1111 1111 1111 1111 1111 11</strong></p>
+                                    <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '5px' }}>
+                                        Lütfen açıklama kısmına sipariş numaranızı yazmayı unutmayınız.
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </section>
                 </div>
@@ -175,13 +279,39 @@ export const CheckoutPage = () => {
                             </div>
                         ))}
                     </div>
+
+                    <div className={css.giftWrapSection} style={{ padding: '10px 0', borderTop: '1px solid #eee', borderBottom: '1px solid #eee', margin: '10px 0' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '10px' }}>
+                            <input
+                                type="checkbox"
+                                checked={isGiftWrap}
+                                onChange={(e) => setIsGiftWrap(e.target.checked)}
+                                style={{ width: '18px', height: '18px' }}
+                            />
+                            <span>Hediye Paketi İstiyorum (+50.00 TL)</span>
+                        </label>
+                    </div>
+
                     <div className={css.total}>
-                        <span>Ödenecek Toplam</span>
-                        <span>{subtotal.toFixed(2)} TL</span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px', fontSize: '0.9rem', color: '#666' }}>
+                            <span>Ara Toplam</span>
+                            <span>{subtotal.toFixed(2)} TL</span>
+                        </div>
+                        {isGiftWrap && (
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px', fontSize: '0.9rem', color: '#666' }}>
+                                <span>Hediye Paketi</span>
+                                <span>50.00 TL</span>
+                            </div>
+                        )}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '1.2rem', marginTop: '10px' }}>
+                            <span>Ödenecek Toplam</span>
+                            <span>{(subtotal + (isGiftWrap ? 50 : 0)).toFixed(2)} TL</span>
+                        </div>
                     </div>
                     <button type="submit" className={css.placeOrderBtn} disabled={isSubmitting || cartItems.length === 0}>
-                        {isSubmitting ? "Sipariş Oluşturuluyor..." : "Siparişi Tamamla"}
+                        {isSubmitting ? "Sipariş İşleniyor..." : "Siparişi Tamamla"}
                     </button>
+                    {isSubmitting && <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '0.9rem' }}>Ödeme işlemi biraz zaman alabilir, lütfen bekleyiniz...</p>}
                 </aside>
             </form>
         </div>
