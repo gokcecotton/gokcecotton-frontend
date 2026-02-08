@@ -125,13 +125,13 @@ export const CartPage = () => {
                             <span>{totalPrice.toFixed(2)} TL</span>
                         </div>
 
-                        <div className={css.giftWrapRow} style={{ margin: '10px 0', padding: '10px 0', borderTop: '1px solid #eee', borderBottom: '1px solid #eee' }}>
-                            <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '10px', fontSize: '0.9rem' }}>
+                        <div className={css.giftWrapRow}>
+                            <label className={css.giftWrapLabel}>
                                 <input
                                     type="checkbox"
                                     checked={isGiftWrap}
                                     onChange={(e) => handleGiftWrapChange(e.target.checked)}
-                                    style={{ width: '16px', height: '16px' }}
+                                    className={css.giftWrapCheckbox}
                                 />
                                 <span>Hediye Paketi (+50 TL)</span>
                             </label>

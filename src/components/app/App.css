@@ -4,3 +4,12 @@
   text-align: center;
   padding: 20px, 10px;
 }
+.loader {
+    text-align: center;
+    padding: 2rem;
+}
+
+.notFound {
+    text-align: center;
+    padding: 5rem;
+}

@@ -115,7 +115,7 @@ export const CheckoutPage = () => {
 
                         {user?.addresses?.length > 0 && (
                             <div className={css.addressSelector}>
-                                <p style={{ marginBottom: '1rem', fontSize: '0.9rem', color: '#666' }}>Kayıtlı Adreslerimden Seç:</p>
+                                <p className={css.addressSelectorTitle}>Kayıtlı Adreslerimden Seç:</p>
                                 {user.addresses.map((addr, idx) => (
                                     <div
                                         key={idx}
@@ -256,10 +256,10 @@ export const CheckoutPage = () => {
                             </label>
 
                             {formData.paymentMethod === "Bank Transfer" && (
-                                <div className={css.bankTransferInfo} style={{ marginTop: '10px', padding: '10px', backgroundColor: '#f9f9f9', borderRadius: '5px', border: '1px solid #eee' }}>
-                                    <p style={{ fontWeight: 'bold', marginBottom: '5px' }}>Banka Hesap Bilgileri:</p>
+                                <div className={css.bankTransferInfo}>
+                                    <p className={css.bankTransferTitle}>Banka Hesap Bilgileri:</p>
                                     <p>IBAN: <strong>TR11 1111 1111 1111 1111 1111 11</strong></p>
-                                    <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '5px' }}>
+                                    <p className={css.bankTransferHelperText}>
                                         Lütfen açıklama kısmına sipariş numaranızı yazmayı unutmayınız.
                                     </p>
                                 </div>
@@ -279,8 +279,8 @@ export const CheckoutPage = () => {
                         ))}
                     </div>
 
-                    <div className={css.giftWrapSection} style={{ padding: '10px 0', borderTop: '1px solid #eee', borderBottom: '1px solid #eee', margin: '10px 0' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '10px' }}>
+                    <div className={css.giftWrapSection}>
+                        <label className={css.giftWrapLabel}>
 
                             <span>Hediye Paketi İstiyorum (+50.00 TL)</span>
                         </label>
@@ -292,17 +292,17 @@ export const CheckoutPage = () => {
                     </div>
 
                     <div className={css.total}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px', fontSize: '0.9rem', color: '#666' }}>
+                        <div className={css.summaryRow}>
                             <span>Ara Toplam</span>
                             <span>{subtotal.toFixed(2)} TL</span>
                         </div>
                         {isGiftWrap && (
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px', fontSize: '0.9rem', color: '#666' }}>
+                            <div className={css.summaryRow}>
                                 <span>Hediye Paketi</span>
                                 <span>50.00 TL</span>
                             </div>
                         )}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '1.2rem', marginTop: '10px' }}>
+                        <div className={css.totalAmountRow}>
                             <span>Ödenecek Toplam</span>
                             <span>{(subtotal + (isGiftWrap ? 50 : 0) + (subtotal >= 850 ? 0 : 135)).toFixed(2)} TL</span>
                         </div>
@@ -310,7 +310,7 @@ export const CheckoutPage = () => {
                     <button type="submit" className={css.placeOrderBtn} disabled={isSubmitting || cartItems.length === 0}>
                         {isSubmitting ? "Sipariş İşleniyor..." : "Siparişi Tamamla"}
                     </button>
-                    {isSubmitting && <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '0.9rem' }}>Ödeme işlemi biraz zaman alabilir, lütfen bekleyiniz...</p>}
+                    {isSubmitting && <p className={css.submitStatus}>Ödeme işlemi biraz zaman alabilir, lütfen bekleyiniz...</p>}
                 </aside>
             </form>
         </div>

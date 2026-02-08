@@ -7,6 +7,7 @@ import RestrictedRoute from "../../routes/RestrictedRoute";
 import PrivateRoute from "../../routes/PrivateRoute";
 import AdminRoute from "../../routes/AdminRoute";
 import { Toaster } from 'react-hot-toast';
+import css from "./App.css";
 
 const HomePage = lazy(() => import("../../pages/home/HomePage").then(m => ({ default: m.HomePage })));
 const ProductsPage = lazy(() => import("../../pages/products/ProductsPage"));
@@ -29,7 +30,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Suspense fallback={<div style={{ textAlign: 'center', padding: '2rem' }}>Yükleniyor...</div>}>
+    <Suspense fallback={<div className={css.loader}>Yükleniyor...</div>}>
       <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -92,7 +93,7 @@ function App() {
               <AdminPage />
             </AdminRoute>
           } />
-          <Route path="*" element={<div style={{ textAlign: 'center', padding: '5rem' }}><h2>404 - Sayfa Bulunamadı</h2><p>Aradığınız sayfa mevcut değil veya yer değiştirmiş.</p></div>} />
+          <Route path="*" element={<div className={css.notFound}><h2>404 - Sayfa Bulunamadı</h2><p>Aradığınız sayfa mevcut değil veya yer değiştirmiş.</p></div>} />
         </Route>
       </Routes>
     </Suspense>

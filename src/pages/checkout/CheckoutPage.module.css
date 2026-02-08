@@ -189,6 +189,67 @@
     display: block;
 }
 
+.addressSelectorTitle {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.bankTransferInfo {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.bankTransferTitle {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.bankTransferHelperText {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.giftWrapSection {
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin: 10px 0;
+}
+
+.giftWrapLabel {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.summaryRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.totalAmountRow {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.submitStatus {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
 .addressOptionDetail {
     font-size: 0.85rem;
     color: #666;

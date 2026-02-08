@@ -147,7 +147,27 @@
     padding-top: 1.5rem;
     color: #7d6d6c;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+}
+
+.giftWrapRow {
+    margin: 10px 0;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.giftWrapLabel {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.giftWrapCheckbox {
+    width: 16px;
+    height: 16px;
 }
 
 .checkoutBtn {
