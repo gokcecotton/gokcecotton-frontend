@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import {
   selectIsLoggedIn,
   selectIsRefreshing,
@@ -8,13 +8,14 @@ import {
 const PrivateRoute = ({ children }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isRefreshing = useSelector(selectIsRefreshing);
+  const location = useLocation();
 
   return isRefreshing ? (
     <div>Yükleniyor...</div>
   ) : isLoggedIn ? (
     children
   ) : (
-    <Navigate to="/" />
+    <Navigate to="/login" state={{ from: location }} replace />
   );
 };
 

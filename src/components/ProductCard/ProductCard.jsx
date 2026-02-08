@@ -1,16 +1,25 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/cart/operations";
+import { addToCartLocal } from "../../redux/cart/slice";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import css from "./ProductCard.module.css";
 import noImage from "../../assets/logo-yazili.png";
+import toast from "react-hot-toast";
 
 export const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
+    const isLoggedIn = useSelector(selectIsLoggedIn);
     const { _id, title, price, images, brand } = product;
 
     const handleAddToCart = (e) => {
         e.preventDefault();
-        dispatch(addToCart({ productId: _id, quantity: 1 }));
+        if (isLoggedIn) {
+            dispatch(addToCart({ productId: _id, quantity: 1 }));
+        } else {
+            dispatch(addToCartLocal({ productId: product, quantity: 1, selectedAttributes: {} }));
+            toast.success("Ürün sepete eklendi (Misafir)");
+        }
     };
 
     return (

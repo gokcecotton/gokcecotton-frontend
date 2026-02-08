@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { loginUser } from "../../redux/auth/operations";
+import { mergeLocalCart } from "../../redux/cart/operations";
 import { resetError } from "../../redux/auth/slice";
 import { selectAuthError, selectIsLoading } from "../../redux/auth/selectors";
 import css from "./AuthPages.module.css";
@@ -21,8 +22,11 @@ const validationSchema = Yup.object({
 export const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const error = useSelector(selectAuthError);
     const isLoading = useSelector(selectIsLoading);
+
+    const from = location.state?.from?.pathname || "/products";
 
     useEffect(() => {
         dispatch(resetError());
@@ -37,8 +41,9 @@ export const LoginPage = () => {
         onSubmit: async (values) => {
             const result = await dispatch(loginUser(values));
             if (loginUser.fulfilled.match(result)) {
+                dispatch(mergeLocalCart());
                 toast.success("Başarıyla giriş yapıldı!");
-                navigate("/products");
+                navigate(from, { replace: true });
             } else {
                 toast.error(result.payload || "Giriş yapılamadı");
             }

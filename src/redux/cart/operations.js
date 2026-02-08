@@ -76,3 +76,53 @@ export const updateGiftWrap = createAsyncThunk(
         }
     }
 );
+
+export const mergeLocalCart = createAsyncThunk(
+    "cart/mergeLocal",
+    async (_, thunkAPI) => {
+        try {
+            const localCartStr = localStorage.getItem('cart');
+            const localCart = localCartStr ? JSON.parse(localCartStr) : [];
+
+            const localGiftWrapStr = localStorage.getItem('isGiftWrap');
+            const localGiftWrap = localGiftWrapStr ? JSON.parse(localGiftWrapStr) : false;
+
+            if (localCart.length === 0 && !localGiftWrap) {
+                // If nothing local, just fetch remote to be sure
+                const response = await axios.get("/cart");
+                return response.data.data;
+            }
+
+            // Sync items
+            // We use a simple loop. For production with many items, Promise.all might be faster but loop is safer for order/rate limits.
+            for (const item of localCart) {
+                // item.productId in local state is the full object. Backend expects string ID.
+                // We must check if item.productId is object or string (just in case).
+                const productId = item.productId._id || item.productId;
+
+                await axios.post("/cart", {
+                    productId,
+                    quantity: item.quantity,
+                    selectedAttributes: item.selectedAttributes
+                });
+            }
+
+            // Sync Gift Wrap
+            if (localGiftWrap) {
+                await axios.patch("/cart/gift-wrap", { isGiftWrap: true });
+            }
+
+            // Clear local storage
+            localStorage.removeItem('cart');
+            localStorage.removeItem('isGiftWrap');
+
+            // Return updated cart from backend
+            const response = await axios.get("/cart");
+            return response.data.data;
+
+        } catch (error) {
+            const message = error.response?.data?.message || error.message;
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);

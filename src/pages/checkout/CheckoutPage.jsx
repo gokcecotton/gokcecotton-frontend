@@ -286,6 +286,11 @@ export const CheckoutPage = () => {
                         </label>
                     </div>
 
+                    <div className={css.summaryItem}>
+                        <span>Kargo</span>
+                        <span>{subtotal >= 850 ? "Ücretsiz" : "135.00 TL"}</span>
+                    </div>
+
                     <div className={css.total}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px', fontSize: '0.9rem', color: '#666' }}>
                             <span>Ara Toplam</span>
@@ -299,7 +304,7 @@ export const CheckoutPage = () => {
                         )}
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '1.2rem', marginTop: '10px' }}>
                             <span>Ödenecek Toplam</span>
-                            <span>{(subtotal + (isGiftWrap ? 50 : 0)).toFixed(2)} TL</span>
+                            <span>{(subtotal + (isGiftWrap ? 50 : 0) + (subtotal >= 850 ? 0 : 135)).toFixed(2)} TL</span>
                         </div>
                     </div>
                     <button type="submit" className={css.placeOrderBtn} disabled={isSubmitting || cartItems.length === 0}>

@@ -2,7 +2,14 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchCart, updateCartItem, removeCartItem, clearCart, updateGiftWrap } from "../../redux/cart/operations";
+import {
+    updateCartItemLocal,
+    removeFromCartLocal,
+    clearCartLocal,
+    updateGiftWrapLocal
+} from "../../redux/cart/slice";
 import { selectCartItems, selectIsLoading } from "../../redux/cart/selectors";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import css from "./CartPage.module.css";
 import noImage from "../../assets/logo-yazili.png";
 
@@ -12,22 +19,37 @@ export const CartPage = () => {
     const cartItems = useSelector(selectCartItems);
     const isGiftWrap = useSelector(state => state.cart.isGiftWrap);
     const isLoading = useSelector(selectIsLoading);
+    const isLoggedIn = useSelector(selectIsLoggedIn);
 
     useEffect(() => {
-        dispatch(fetchCart());
-    }, [dispatch]);
+        if (isLoggedIn) {
+            dispatch(fetchCart());
+        }
+    }, [dispatch, isLoggedIn]);
 
     const handleUpdateQuantity = (itemId, newQuantity) => {
         if (newQuantity < 1) return;
-        dispatch(updateCartItem({ itemId, quantity: newQuantity }));
+        if (isLoggedIn) {
+            dispatch(updateCartItem({ itemId, quantity: newQuantity }));
+        } else {
+            dispatch(updateCartItemLocal({ itemId, quantity: newQuantity }));
+        }
     };
 
     const handleRemove = (itemId) => {
-        dispatch(removeCartItem(itemId));
+        if (isLoggedIn) {
+            dispatch(removeCartItem(itemId));
+        } else {
+            dispatch(removeFromCartLocal(itemId));
+        }
     };
 
     const handleClear = () => {
-        dispatch(clearCart());
+        if (isLoggedIn) {
+            dispatch(clearCart());
+        } else {
+            dispatch(clearCartLocal());
+        }
     };
 
     const totalPrice = cartItems.reduce((acc, item) => {
@@ -38,8 +60,14 @@ export const CartPage = () => {
     }, 0);
 
     const handleGiftWrapChange = (checked) => {
-        dispatch(updateGiftWrap(checked));
+        if (isLoggedIn) {
+            dispatch(updateGiftWrap(checked));
+        } else {
+            dispatch(updateGiftWrapLocal(checked));
+        }
     };
+
+    const shippingCost = totalPrice >= 850 ? 0 : 135;
 
     if (isLoading) {
         return <div className={css.loading}>Sepetiniz yükleniyor...</div>;
@@ -118,11 +146,11 @@ export const CartPage = () => {
 
                         <div className={css.summaryRow}>
                             <span>Kargo</span>
-                            <span>Bir sonraki adımda hesaplanacak</span>
+                            <span>{shippingCost === 0 ? "Ücretsiz" : `${shippingCost.toFixed(2)} TL`}</span>
                         </div>
                         <div className={`${css.summaryRow} ${css.total}`}>
                             <span>Toplam</span>
-                            <span>{(totalPrice + (isGiftWrap ? 50 : 0)).toFixed(2)} TL</span>
+                            <span>{(totalPrice + (isGiftWrap ? 50 : 0) + shippingCost).toFixed(2)} TL</span>
                         </div>
                         <button className={css.checkoutBtn} onClick={() => navigate("/checkout")}>
                             Ödeme Adımına Geç
