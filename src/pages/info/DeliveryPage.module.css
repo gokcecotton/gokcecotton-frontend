@@ -1,0 +1,162 @@
+.page {
+    padding: 4rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    color: #7d6d6c;
+    line-height: 1.8;
+}
+
+.content {
+    background-color: #fffcf7;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(125, 109, 108, 0.05);
+    border: 1px solid rgba(125, 109, 108, 0.1);
+}
+
+.title {
+    font-size: 2.2rem;
+    color: #7d6d6c;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.intro {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(125, 109, 108, 0.1);
+    text-align: center;
+}
+
+.section {
+    margin-bottom: 2.5rem;
+}
+
+.section h2 {
+    font-size: 1.4rem;
+    color: #7d6d6c;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+
+.section p {
+    margin-bottom: 1rem;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.list li {
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+}
+
+.list li::before {
+    content: "•";
+    color: #7d6d6c;
+    font-weight: bold;
+}
+
+.policyLinks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(125, 109, 108, 0.1);
+}
+
+.policyLink {
+    background: none;
+    border: none;
+    color: #7d6d6c;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
+
+.policyLink:hover {
+    opacity: 0.7;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.modalContent {
+    background-color: #fffcf7;
+    width: 100%;
+    max-width: 700px;
+    max-height: 80vh;
+    border-radius: 15px;
+    position: relative;
+    padding: 2.5rem;
+    overflow-y: auto;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.closeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #7d6d6c;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modalBody h3 {
+    color: #7d6d6c;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.modalBody p {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.modalBody strong {
+    color: #7d6d6c;
+}
+
+/* 768px (Tablet ve üstü) */
+@media (min-width: 768px) {
+    .page {
+        padding: 5rem 1.5rem;
+    }
+
+    .content {
+        padding: 4rem;
+    }
+
+    .title {
+        font-size: 2.8rem;
+    }
+}
