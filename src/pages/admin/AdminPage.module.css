@@ -1,24 +1,30 @@
 .container {
-    padding: 2rem 5%;
+    padding: 1rem;
     font-family: inherit;
 }
 
 .header {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     border-bottom: 2px solid #7d6d6c;
+    gap: 1rem;
 }
 
 .header h1 {
     color: #7d6d6c;
+    font-size: 1.5rem;
+    margin: 0;
 }
 
 .headerActions {
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 .addBtn,
@@ -26,11 +32,15 @@
     background-color: #909482;
     color: #fff;
     border: none;
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 600;
     transition: background 0.3s;
+    flex: 1;
+    text-align: center;
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 .addBtn:hover,
@@ -44,9 +54,9 @@
 
 .formSection {
     background-color: #fff9ef;
-    padding: 2rem;
+    padding: 1.2rem;
     border-radius: 8px;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     border: 2px solid #7d6d6c;
 }
 
@@ -59,18 +69,19 @@
 .fieldGroup {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
     color: #7d6d6c;
 }
 
 .fieldGroup label {
     font-weight: 600;
+    font-size: 0.9rem;
 }
 
 .row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
 }
 
 .input,
@@ -81,6 +92,7 @@
     background-color: #fff;
     font-family: inherit;
     color: #7d6d6c;
+    font-size: 1rem;
 }
 
 .textarea {
@@ -90,7 +102,7 @@
 
 .error {
     color: #e74c3c;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
 .submitBtn {
@@ -102,6 +114,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+    font-size: 1rem;
 }
 
 .submitBtn:hover {
@@ -112,19 +125,22 @@
 
 .listSection {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 1rem;
 }
 
 .table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
+    min-width: 600px;
 }
 
 .table th,
 .table td {
-    padding: 1rem;
+    padding: 0.8rem;
     text-align: left;
     border-bottom: 1px solid #7d6d6c33;
+    font-size: 0.9rem;
 }
 
 .table th {
@@ -133,8 +149,8 @@
 }
 
 .thumb {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     object-fit: contain;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -148,10 +164,10 @@
 
 .editBtn,
 .deleteBtn {
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
     transition: all 0.2s;
 }
@@ -178,7 +194,7 @@
 }
 
 .imageManagement {
-    margin: 1.5rem 0;
+    margin: 1rem 0;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -198,9 +214,9 @@
 
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    padding: 0.8rem;
     background: #fff;
     border: 1px solid #7d6d6c33;
     border-radius: 4px;
@@ -216,7 +232,7 @@
 
 .imageItem img {
     width: 100%;
-    height: 100px;
+    height: 80px;
     object-fit: contain;
 }
 
@@ -257,4 +273,70 @@
     font-size: 10px;
     padding: 2px 4px;
     border-radius: 2px;
+}
+
+/* 768px (Tablet ve üstü) */
+@media (min-width: 768px) {
+    .container {
+        padding: 2rem 3%;
+    }
+
+    .header {
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .headerActions {
+        width: auto;
+        gap: 1rem;
+    }
+
+    .addBtn,
+    .catBtn {
+        flex: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .formSection {
+        padding: 2rem;
+    }
+
+    .row {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .thumb {
+        width: 50px;
+        height: 50px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .imageItem img {
+        height: 100px;
+    }
+}
+
+/* 1280px (Laptop/Küçük Masaüstü ve üstü) */
+@media (min-width: 1280px) {
+    .container {
+        padding: 2rem 5%;
+    }
 }

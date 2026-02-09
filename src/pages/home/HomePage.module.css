@@ -3,27 +3,25 @@
 }
 
 .categories {
-    max-width: 1200px;
-    margin: 6rem auto;
-    padding: 0 2rem;
+    margin: 3rem 1rem;
 }
 
 .sectionTitle {
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     letter-spacing: 1px;
 }
 
 .catGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
 }
 
 .catCard {
     position: relative;
-    height: 400px;
+    height: 300px;
     border-radius: 12px;
     overflow: hidden;
     text-decoration: none;
@@ -43,7 +41,7 @@
     background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.6));
     display: flex;
     align-items: flex-end;
-    padding: 2rem;
+    padding: 1.5rem;
     transition: background 0.3s;
 }
 
@@ -57,7 +55,7 @@
 
 .featured {
     background-color: #f4f1ea;
-    padding: 8rem 2rem;
+    padding: 4rem 1rem;
     text-align: center;
 }
 
@@ -67,19 +65,19 @@
 }
 
 .featuredContent h2 {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
 .featuredContent p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #666;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 .shopBtn {
     display: inline-block;
-    padding: 1.2rem 3rem;
+    padding: 1rem 2.5rem;
     background-color: #1a1a1a;
     color: #fff;
     text-decoration: none;
@@ -90,4 +88,67 @@
 
 .shopBtn:hover {
     transform: translateY(-3px);
+}
+
+/* 768px (Tablet ve üstü) */
+@media (min-width: 768px) {
+    .categories {
+        padding: 0 2rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.8rem;
+    }
+
+    .catGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .catCard {
+        height: 350px;
+    }
+
+    .featured {
+        padding: 6rem 2rem;
+    }
+
+    .featuredContent h2 {
+        font-size: 2.5rem;
+    }
+}
+
+/* 1280px (Laptop/Küçük Masaüstü ve üstü) */
+@media (min-width: 1280px) {
+    .categories {
+        max-width: 1200px;
+        margin: 6rem auto;
+    }
+
+    .sectionTitle {
+        font-size: 2rem;
+    }
+
+    .catGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .catCard {
+        height: 400px;
+    }
+
+    .featuredContent h2 {
+        font-size: 3rem;
+    }
+
+    .featuredContent p {
+        font-size: 1.2rem;
+    }
+}
+
+/* 1440px (Geniş Ekran ve üstü) */
+@media (min-width: 1440px) {
+    .categories {
+        max-width: 1400px;
+    }
 }

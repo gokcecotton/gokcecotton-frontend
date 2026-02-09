@@ -1,0 +1,53 @@
+#root {
+  text-align: center;
+  padding: 1rem;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 1.2rem;
+  color: #7d6d6c;
+}
+
+.notFound {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.notFound h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #7d6d6c;
+}
+
+/* 768px (Tablet ve üstü) */
+@media (min-width: 768px) {
+  #root {
+    padding: 1.5rem 3%;
+  }
+
+  .loader {
+    height: 60vh;
+    font-size: 1.5rem;
+  }
+
+  .notFound {
+    padding: 8rem 2rem;
+  }
+
+  .notFound h2 {
+    font-size: 3rem;
+  }
+}
+
+/* 1280px (Laptop/Küçük Masaüstü ve üstü) */
+@media (min-width: 1280px) {
+  #root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+  }
+}

@@ -7,7 +7,7 @@ import RestrictedRoute from "../../routes/RestrictedRoute";
 import PrivateRoute from "../../routes/PrivateRoute";
 import AdminRoute from "../../routes/AdminRoute";
 import { Toaster } from 'react-hot-toast';
-import css from "./App.css";
+import css from "./App.module.css";
 
 const HomePage = lazy(() => import("../../pages/home/HomePage").then(m => ({ default: m.HomePage })));
 const ProductsPage = lazy(() => import("../../pages/products/ProductsPage"));

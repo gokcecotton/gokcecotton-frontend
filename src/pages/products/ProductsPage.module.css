@@ -1,32 +1,31 @@
 .page {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 5%;
+    padding: 1rem;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
 }
 
 .title {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     margin-bottom: 1rem;
     letter-spacing: 1px;
 }
 
 .subtitle {
     color: #666;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .content {
     display: flex;
-    gap: 3rem;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .sidebar {
-    width: 250px;
+    width: 100%;
     flex-shrink: 0;
 }
 
@@ -36,23 +35,23 @@
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
 }
 
 .loading,
 .empty {
     text-align: center;
-    padding: 5rem;
-    font-size: 1.2rem;
+    padding: 3rem 1rem;
+    font-size: 1.1rem;
     color: #777;
 }
+
 .searchInput {
     width: 100%;
-    max-width: 400px;
     height: 40px;
     margin: 0 auto;
-    background-color: #fff9ef; 
+    background-color: #fff9ef;
     color: #7d6d6c;
     border: 2px solid #7d6d6c;
     border-radius: 10px;
@@ -60,12 +59,69 @@
     font-size: 1rem;
 }
 
-@media (max-width: 992px) {
+/* 768px (Tablet ve üstü) */
+@media (min-width: 768px) {
+    .page {
+        padding: 2rem 3%;
+    }
+
+    .header {
+        margin-bottom: 3rem;
+    }
+
+    .title {
+        font-size: 2.2rem;
+    }
+
     .content {
-        flex-direction: column;
+        flex-direction: row;
+        gap: 2rem;
     }
 
     .sidebar {
-        width: 100%;
+        width: 200px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 2rem;
+    }
+
+    .loading,
+    .empty {
+        padding: 5rem;
+        font-size: 1.2rem;
+    }
+
+    .searchInput {
+        max-width: 400px;
+    }
+}
+
+/* 1280px (Laptop/Küçük Masaüstü ve üstü) */
+@media (min-width: 1280px) {
+    .page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 5%;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .sidebar {
+        width: 250px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+/* 1440px (Geniş Ekran ve üstü) */
+@media (min-width: 1440px) {
+    .page {
+        max-width: 1400px;
     }
 }

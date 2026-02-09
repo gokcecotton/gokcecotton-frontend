@@ -1,29 +1,67 @@
 .page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 2rem 1rem;
 }
 
 .title {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     text-align: center;
+    font-size: 1.5rem;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 }
 
 .empty {
     text-align: center;
-    padding: 5rem;
+    padding: 4rem 1rem;
     color: #777;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .loading {
     text-align: center;
-    padding: 10rem;
-    font-size: 1.5rem;
+    padding: 5rem 1rem;
+    font-size: 1.2rem;
+}
+
+/* 768px (Tablet ve üstü) */
+@media (min-width: 768px) {
+    .page {
+        padding: 4rem 2rem;
+    }
+
+    .title {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 2rem;
+    }
+
+    .empty {
+        padding: 5rem;
+        font-size: 1.2rem;
+    }
+
+    .loading {
+        padding: 10rem;
+        font-size: 1.5rem;
+    }
+}
+
+/* 1280px (Laptop/Küçük Masaüstü ve üstü) */
+@media (min-width: 1280px) {
+    .page {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
 }

@@ -6,7 +6,7 @@ const getLocalCart = () => {
     try {
         const saved = localStorage.getItem('cart');
         return saved ? JSON.parse(saved) : [];
-    } catch (e) {
+    } catch {
         return [];
     }
 };
@@ -15,7 +15,7 @@ const getLocalGiftWrap = () => {
     try {
         const saved = localStorage.getItem('isGiftWrap');
         return saved ? JSON.parse(saved) : false;
-    } catch (e) {
+    } catch {
         return false;
     }
 };

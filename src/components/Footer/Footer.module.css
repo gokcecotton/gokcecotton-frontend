@@ -1,27 +1,25 @@
 .footer {
     background-color: #7d6d6c;
     color: #fff;
-    padding: 10px;
+    padding: 2rem 1rem;
     font-family: inherit;
 }
 
-.content {  
+.content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .section h4 {
     font-size: 1.1rem;
     text-decoration: underline;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     color: #fff;
 }
 
 .brand {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 1rem;
     letter-spacing: 2px;
 }
@@ -29,6 +27,7 @@
 .description {
     color: #fff;
     line-height: 1.6;
+    font-size: 0.95rem;
 }
 
 .list {
@@ -43,13 +42,35 @@
     transition: color 0.3s;
 }
 
-.list li:hover {
-    color: #fff;
-}
-
 .bottom {
     text-align: center;
     border-top: 1px solid #fff9ef;
     color: #fff;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+}
+
+/* 768px (Tablet ve üstü) */
+@media (min-width: 768px) {
+    .content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .brand {
+        font-size: 1.5rem;
+    }
+
+    .bottom {
+        font-size: 0.9rem;
+    }
+}
+
+/* 1280px (Laptop/Küçük Masaüstü ve üstü) */
+@media (min-width: 1280px) {
+    .content {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 }
