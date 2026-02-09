@@ -8,14 +8,7 @@
 .content {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
-}
-
-.section h4 {
-    font-size: 1.1rem;
-    text-decoration: underline;
-    margin-bottom: 1rem;
-    color: #fff;
+    gap: 1.5rem;
 }
 
 .brand {
@@ -36,10 +29,29 @@
 }
 
 .list li {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.9rem;
+}
+
+.list li a {
     color: #fff;
-    cursor: pointer;
+    text-decoration: none;
     transition: color 0.3s;
+}
+
+.list li a:hover {
+    color: #fff9ef;
+    text-decoration: underline;
+}
+
+.instagramLink {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.instagramIcon {
+    flex-shrink: 0;
 }
 
 .bottom {

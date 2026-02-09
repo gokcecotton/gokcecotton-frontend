@@ -21,6 +21,9 @@ const CheckoutPage = lazy(() => import("../../pages/checkout/CheckoutPage"));
 const ProfilePage = lazy(() => import("../../pages/profile/ProfilePage"));
 const WishlistPage = lazy(() => import("../../pages/wishlist/WishlistPage"));
 const AdminPage = lazy(() => import("../../pages/admin/AdminPage"));
+const AboutPage = lazy(() => import("../../pages/info/AboutPage"));
+const ContactPage = lazy(() => import("../../pages/info/ContactPage"));
+const DeliveryPage = lazy(() => import("../../pages/info/DeliveryPage"));
 
 function App() {
   const dispatch = useDispatch();
@@ -93,6 +96,10 @@ function App() {
               <AdminPage />
             </AdminRoute>
           } />
+
+          <Route path="about" element={<AboutPage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="delivery" element={<DeliveryPage />} />
           <Route path="*" element={<div className={css.notFound}><h2>404 - Sayfa Bulunamadı</h2><p>Aradığınız sayfa mevcut değil veya yer değiştirmiş.</p></div>} />
         </Route>
       </Routes>

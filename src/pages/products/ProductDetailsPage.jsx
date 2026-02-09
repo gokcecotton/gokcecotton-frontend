@@ -3,16 +3,20 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductById } from "../../redux/products/operations";
 import { selectCurrentProduct, selectIsLoading } from "../../redux/products/selectors";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { addToCart } from "../../redux/cart/operations";
+import { addToCartLocal } from "../../redux/cart/slice";
 import { addToWishlist, removeFromWishlist, selectIsInWishlist } from "../../redux/wishlist";
 import css from "./ProductDetailsPage.module.css";
 import noImage from "../../assets/logo-yazili.png";
+import { toast } from "react-hot-toast";
 
 export const ProductDetailsPage = () => {
     const { productId } = useParams();
     const dispatch = useDispatch();
     const product = useSelector(selectCurrentProduct);
     const isLoading = useSelector(selectIsLoading);
+    const isLoggedIn = useSelector(selectIsLoggedIn);
     const isInWishlist = useSelector((state) => selectIsInWishlist(state, productId));
 
     const [quantity, setQuantity] = useState(1);
@@ -48,7 +52,16 @@ export const ProductDetailsPage = () => {
     };
 
     const handleAddToCart = () => {
-        dispatch(addToCart({ productId, quantity, selectedAttributes }));
+        if (isLoggedIn) {
+            dispatch(addToCart({ productId, quantity, selectedAttributes }))
+                .unwrap()
+                .then(() => toast.success("Ürün sepete eklendi"))
+                .catch(() => toast.error("Ürün sepete eklenemedi"));
+        } else {
+            // For local cart, we must pass the full product object to render it in the cart page
+            dispatch(addToCartLocal({ productId: product, quantity, selectedAttributes }));
+            toast.success("Ürün sepete eklendi (Misafir)");
+        }
     };
 
     const toggleWishlist = () => {
