@@ -15,7 +15,7 @@ export const Footer = () => {
                         <li><Link to="/contact">İletişim</Link></li>
                         <li><Link to="/delivery">Teslimat ve İadeler</Link></li>
                         <li>
-                            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className={css.instagramLink}>
+                            <a href="https://www.instagram.com/gokcecotton?igsh=NmptMzA5YXUxZXVs" target="_blank" rel="noopener noreferrer" className={css.instagramLink}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="18"
