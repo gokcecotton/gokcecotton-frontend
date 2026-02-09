@@ -56,11 +56,42 @@
 
 .bottom {
     text-align: center;
-    border-top: 1px solid #fff9ef;
-    color: #fff;
+    border-top: 1px solid rgba(255, 249, 239, 0.2);
+    color: #fff9ef;
     font-size: 0.8rem;
     margin-top: 2rem;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.developer {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.devLink {
+    color: #fff9ef;
+    text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.devLogo {
+    height: 30px;
+    width: auto;
+    
+}
+
+.devLink:hover {
+    opacity: 1;
+    text-decoration: underline;
 }
 
 /* 768px (Tablet ve üstü) */

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import css from "./Footer.module.css";
+import hooksLogo from "../../assets/hooks-logo.png";
 
 export const Footer = () => {
     return (
@@ -40,6 +41,18 @@ export const Footer = () => {
             </div>
             <div className={css.bottom}>
                 <p>&copy; {new Date().getFullYear()} Gökçe Cotton. Tüm hakları saklıdır.</p>
+                <div className={css.developer}>
+                    Developed by{" "}
+                    <a
+                        href="https://www.instagram.com/hookssoftwaresolutions?igsh=MWFmajMxYm5hMzhweQ=="
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={css.devLink}
+                    >
+                        <img src={hooksLogo} alt="HOOKS Logo" className={css.devLogo} />
+                        HOOKS SOFTWARE SOLUTIONS
+                    </a>
+                </div>
             </div>
         </footer>
     );
