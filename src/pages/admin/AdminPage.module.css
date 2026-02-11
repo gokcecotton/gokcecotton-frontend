@@ -340,3 +340,18 @@
         padding: 2rem 5%;
     }
 }
+
+.cancelBtn {
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.cancelBtn:hover {
+    background-color: #5a6268;
+}

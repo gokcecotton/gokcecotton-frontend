@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, addProduct, updateProduct, deleteProduct } from "../../redux/products/operations";
-import { fetchCategories } from "../../redux/categories/operations";
 import { selectProducts, selectIsLoading } from "../../redux/products/selectors";
 import { selectCategories, selectIsLoading as selectIsCatLoading } from "../../redux/categories/selectors";
-import { addCategory } from "../../redux/categories/operations";
+import { fetchCategories, addCategory, updateCategory, deleteCategory } from "../../redux/categories/operations";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
@@ -30,6 +29,7 @@ export const AdminPage = () => {
     const catFileInputRef = useRef(null);
 
     const [editingProduct, setEditingProduct] = useState(null);
+    const [editingCategory, setEditingCategory] = useState(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [isCatFormOpen, setIsCatFormOpen] = useState(false);
 
@@ -62,7 +62,6 @@ export const AdminPage = () => {
             const newPos = index + direction;
 
             if (newPos >= 0 && newPos < updatedFiles.length) {
-                [updatedFiles[index], updatedFiles[newPos]] = [updatedFiles[index], updatedFiles[newPos]]; // Placeholder for swap
                 const tempFile = updatedFiles[index];
                 updatedFiles[index] = updatedFiles[newPos];
                 updatedFiles[newPos] = tempFile;
@@ -100,7 +99,10 @@ export const AdminPage = () => {
             dispatch(deleteProduct(id))
                 .unwrap()
                 .then(() => toast.success("Ürün silindi"))
-                .catch((err) => toast.error(err));
+                .catch((err) => {
+                    const message = typeof err === "string" ? err : (err?.message || "Ürün silinirken bir hata oluştu");
+                    toast.error(message);
+                });
         }
     };
 
@@ -131,7 +133,10 @@ export const AdminPage = () => {
                 setIsFormOpen(false);
                 setEditingProduct(null);
             })
-            .catch((err) => toast.error(err));
+            .catch((err) => {
+                const message = typeof err === "string" ? err : (err?.message || "Ürün kaydedilirken bir hata oluştu");
+                toast.error(message);
+            });
     };
 
     const resetImageState = () => {
@@ -163,25 +168,65 @@ export const AdminPage = () => {
     };
 
     const handleCategorySubmit = (values, { resetForm }) => {
-        const formData = new FormData();
-        formData.append("name", values.name);
-        formData.append("slug", slugify(values.name));
-        formData.append("description", values.description || "");
+        let categoryData;
+
         if (catImageFile) {
-            formData.append("image", catImageFile);
+            categoryData = new FormData();
+            categoryData.append("name", values.name);
+            categoryData.append("slug", slugify(values.name));
+            categoryData.append("description", values.description || "");
+            categoryData.append("image", catImageFile);
+        } else {
+            // Eğer resim yoksa JSON olarak gönder (bazı backend'ler için daha güvenli)
+            categoryData = {
+                name: values.name,
+                slug: slugify(values.name),
+                description: values.description || ""
+            };
         }
 
-        dispatch(addCategory(formData))
+        const action = editingCategory
+            ? updateCategory({ categoryId: editingCategory._id, categoryData })
+            : addCategory(categoryData);
+
+        dispatch(action)
             .unwrap()
             .then(() => {
-                toast.success("Kategori başarıyla eklendi");
+                toast.success(editingCategory ? "Kategori güncellendi" : "Kategori başarıyla eklendi");
                 resetForm();
                 setCatImageFile(null);
                 setCatPreviewUrl(null);
                 if (catFileInputRef.current) catFileInputRef.current.value = "";
                 setIsCatFormOpen(false);
+                setEditingCategory(null);
+                // Garantici olmak için listeyi tekrar çek
+                dispatch(fetchCategories());
             })
-            .catch((err) => toast.error(err));
+            .catch((err) => {
+                const message = typeof err === "string" ? err : (err?.message || "Kategori kaydedilirken bir hata oluştu");
+                toast.error(message);
+            });
+    };
+
+    const handleEditCategory = (category) => {
+        setEditingCategory(category);
+        setCatImageFile(null);
+        setCatPreviewUrl(category.image || null);
+        setIsCatFormOpen(true);
+        setIsFormOpen(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleDeleteCategory = (id) => {
+        if (window.confirm("Bu kategoriyi silmek istediğinize emin misiniz? Bu kategoriye ait ürünler kategorisiz kalabilir.")) {
+            dispatch(deleteCategory(id))
+                .unwrap()
+                .then(() => toast.success("Kategori silindi"))
+                .catch((err) => {
+                    const message = typeof err === "string" ? err : (err?.message || "Kategori silinirken bir hata oluştu");
+                    toast.error(message);
+                });
+        }
     };
 
     return (
@@ -196,7 +241,7 @@ export const AdminPage = () => {
                             setIsFormOpen(false);
                         }}
                     >
-                        {isCatFormOpen ? "Kapat" : "Yeni Kategori Ekle"}
+                        {isCatFormOpen ? "Kapat" : "Kategoriler"}
                     </button>
                     <button
                         className={css.addBtn}
@@ -214,9 +259,13 @@ export const AdminPage = () => {
 
             {isCatFormOpen && (
                 <div className={css.formSection}>
-                    <h2>Yeni Kategori Ekle</h2>
+                    <h2>{editingCategory ? "Kategoriyi Düzenle" : "Yeni Kategori Ekle"}</h2>
                     <Formik
-                        initialValues={{ name: "", description: "" }}
+                        initialValues={{
+                            name: editingCategory?.name || "",
+                            description: editingCategory?.description || ""
+                        }}
+                        enableReinitialize
                         validationSchema={Yup.object({
                             name: Yup.string().required("Kategori adı gerekli"),
                             description: Yup.string(),
@@ -258,11 +307,54 @@ export const AdminPage = () => {
                                     )}
                                 </div>
                                 <button type="submit" className={css.submitBtn} disabled={isCatLoading}>
-                                    Kategori Kaydet
+                                    {editingCategory ? "Kategoriyi Güncelle" : "Kategori Kaydet"}
                                 </button>
+                                {editingCategory && (
+                                    <button
+                                        type="button"
+                                        className={css.cancelBtn}
+                                        onClick={() => {
+                                            setEditingCategory(null);
+                                            setIsCatFormOpen(false);
+                                            setCatPreviewUrl(null);
+                                            setCatImageFile(null);
+                                        }}
+                                    >
+                                        İptal
+                                    </button>
+                                )}
                             </Form>
                         )}
                     </Formik>
+                </div>
+            )}
+
+            {isCatFormOpen && !editingCategory && (
+                <div className={css.listSection}>
+                    <h3>Mevcut Kategoriler</h3>
+                    <table className={css.table}>
+                        <thead>
+                            <tr>
+                                <th>Görsel</th>
+                                <th>Ad</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {categories.map(cat => (
+                                <tr key={cat._id}>
+                                    <td>
+                                        <img src={cat.image || noImage} alt={cat.name} className={css.thumb} />
+                                    </td>
+                                    <td>{cat.name}</td>
+                                    <td className={css.actions}>
+                                        <button onClick={() => handleEditCategory(cat)} className={css.editBtn}>Düzenle</button>
+                                        <button onClick={() => handleDeleteCategory(cat._id)} className={css.deleteBtn}>Sil</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             )}
 
