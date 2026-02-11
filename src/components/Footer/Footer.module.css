@@ -71,6 +71,22 @@
     opacity: 0.8;
 }
 
+.logoBandContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 249, 239, 0.1);
+}
+
+.logoBand {
+    margin: 0 auto;
+    max-width: 30%;
+    height: auto;
+    opacity: 0.9;
+}
+
 .devLink {
     color: #fff9ef;
     text-decoration: none;
@@ -86,7 +102,7 @@
 .devLogo {
     height: 30px;
     width: auto;
-    
+
 }
 
 .devLink:hover {

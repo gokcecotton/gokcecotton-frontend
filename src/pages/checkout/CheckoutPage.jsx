@@ -6,6 +6,7 @@ import { selectCartItems } from "../../redux/cart/selectors";
 import { selectUser } from "../../redux/auth/selectors";
 import toast from "react-hot-toast";
 import css from "./CheckoutPage.module.css";
+import iyzicoLogo from "../../assets/iyzico_ile_ode_colored.png";
 
 export const CheckoutPage = () => {
   const dispatch = useDispatch();
@@ -159,50 +160,50 @@ export const CheckoutPage = () => {
             {/* Show form if no address selected (New Address mode) or user has no addresses */}
             {(selectedAddressIndex === null ||
               user?.addresses?.length === 0) && (
-              <>
-                <div className={css.field}>
-                  <label>Sokak/Cadde Adresi</label>
-                  <input
-                    type="text"
-                    name="street"
-                    value={formData.street}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className={css.row}>
+                <>
                   <div className={css.field}>
-                    <label>Şehir</label>
+                    <label>Sokak/Cadde Adresi</label>
                     <input
                       type="text"
-                      name="city"
-                      value={formData.city}
+                      name="street"
+                      value={formData.street}
                       onChange={handleChange}
                       required
                     />
                   </div>
+                  <div className={css.row}>
+                    <div className={css.field}>
+                      <label>Şehir</label>
+                      <input
+                        type="text"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div className={css.field}>
+                      <label>Posta Kodu (Opsiyonel)</label>
+                      <input
+                        type="text"
+                        name="zip"
+                        value={formData.zip}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
                   <div className={css.field}>
-                    <label>Posta Kodu (Opsiyonel)</label>
+                    <label>İletişim Numarası</label>
                     <input
                       type="text"
-                      name="zip"
-                      value={formData.zip}
+                      name="contactNumber"
+                      value={formData.contactNumber}
                       onChange={handleChange}
+                      required
                     />
                   </div>
-                </div>
-                <div className={css.field}>
-                  <label>İletişim Numarası</label>
-                  <input
-                    type="text"
-                    name="contactNumber"
-                    value={formData.contactNumber}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </>
-            )}
+                </>
+              )}
           </section>
 
           <section className={css.section}>
@@ -217,6 +218,23 @@ export const CheckoutPage = () => {
                   onChange={handleChange}
                 />
                 <span>Kredi Kartı (Iyzico ile Güvenli)</span>
+                <div className={css.paymentLogos}>
+                  <img
+                    src={iyzicoLogo}
+                    alt="iyzico"
+                    className={css.iyzicoLogo}
+                  />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
+                    alt="Visa"
+                    className={css.brandLogo}
+                  />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                    alt="Mastercard"
+                    className={css.brandLogo}
+                  />
+                </div>
               </label>
 
               {formData.paymentMethod === "Credit Card" && (

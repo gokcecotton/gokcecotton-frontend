@@ -240,7 +240,26 @@
     display: block;
 }
 
+
+.paymentLogos {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.iyzicoLogo {
+    height: 20px;
+    width: auto;
+}
+
+.brandLogo {
+    height: 18px;
+    width: auto;
+}
+
 /* 768px (Tablet ve üstü) */
+
 @media (min-width: 768px) {
     .page {
         padding: 4rem 2rem;

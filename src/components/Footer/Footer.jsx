@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import css from "./Footer.module.css";
 import hooksLogo from "../../assets/hooks-logo.png";
+import logoBand from "../../assets/logo_band_colored@3x.png";
 
 export const Footer = () => {
     return (
@@ -40,6 +41,7 @@ export const Footer = () => {
                 </div>
             </div>
             <div className={css.bottom}>
+                <img src={logoBand} alt="Payment Methods Band" className={css.logoBand} />
                 <p>&copy; {new Date().getFullYear()} Gökçe Cotton. Tüm hakları saklıdır.</p>
                 <div className={css.developer}>
                     Developed by{" "}
