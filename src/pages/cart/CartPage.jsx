@@ -67,7 +67,8 @@ export const CartPage = () => {
         }
     };
 
-    const shippingCost = totalPrice >= 850 ? 0 : 135;
+    // const shippingCost = totalPrice >= 850 ? 0 : 135;
+    const shippingCost = 0;
 
     if (isLoading) {
         return <div className={css.loading}>Sepetiniz yükleniyor...</div>;

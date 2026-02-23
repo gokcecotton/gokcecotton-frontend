@@ -357,7 +357,8 @@ export const CheckoutPage = () => {
 
           <div className={css.summaryItem}>
             <span>Kargo</span>
-            <span>{subtotal >= 850 ? "Ücretsiz" : "135.00 TL"}</span>
+            {/* <span>{subtotal >= 850 ? "Ücretsiz" : "135.00 TL"}</span> */}
+            <span>Ücretsiz</span>
           </div>
 
           <div className={css.total}>
@@ -377,7 +378,8 @@ export const CheckoutPage = () => {
                 {(
                   subtotal +
                   (isGiftWrap ? 50 : 0) +
-                  (subtotal >= 850 ? 0 : 135)
+                  // (subtotal >= 850 ? 0 : 135)
+                  0
                 ).toFixed(2)}{" "}
                 TL
               </span>
