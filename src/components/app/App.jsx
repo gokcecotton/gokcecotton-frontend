@@ -9,6 +9,7 @@ import AdminRoute from "../../routes/AdminRoute";
 import { Toaster } from "react-hot-toast";
 import css from "./App.module.css";
 import { Loader } from "../loader/loader";
+import ScrollToTop from "../ScrollToTop/ScrollToTop";
 
 const HomePage = lazy(() =>
   import("../../pages/home/HomePage").then((m) => ({ default: m.HomePage })),
@@ -33,6 +34,8 @@ const AdminPage = lazy(() => import("../../pages/admin/AdminPage"));
 const AboutPage = lazy(() => import("../../pages/info/AboutPage"));
 const ContactPage = lazy(() => import("../../pages/info/ContactPage"));
 const DeliveryPage = lazy(() => import("../../pages/info/DeliveryPage"));
+const PrivacyPolicyPage = lazy(() => import("../../pages/info/PrivacyPolicyPage"));
+const DistanceSalesAgreementPage = lazy(() => import("../../pages/info/DistanceSalesAgreementPage"));
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +65,7 @@ function App() {
   return (
     <>
       {isLoading && <Loader />}
+      <ScrollToTop />
       <Suspense fallback={<Loader />}>
         <Toaster position="top-right" reverseOrder={false} />
         <Routes>
@@ -162,6 +166,8 @@ function App() {
             <Route path="about" element={<AboutPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="delivery" element={<DeliveryPage />} />
+            <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="distance-sales-agreement" element={<DistanceSalesAgreementPage />} />
             <Route
               path="*"
               element={

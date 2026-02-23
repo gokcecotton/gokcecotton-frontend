@@ -16,6 +16,8 @@ export const Footer = () => {
                         <li><Link to="/about">Hakkımızda</Link></li>
                         <li><Link to="/contact">İletişim</Link></li>
                         <li><Link to="/delivery">Teslimat ve İadeler</Link></li>
+                        <li><Link to="/privacy-policy">Gizlilik Politikası</Link></li>
+                        <li><Link to="/distance-sales-agreement">Mesafeli Satış Sözleşmesi</Link></li>
                         <li>
                             <a href="https://www.instagram.com/gokcecotton?igsh=NmptMzA5YXUxZXVs" target="_blank" rel="noopener noreferrer" className={css.instagramLink}>
                                 <svg
