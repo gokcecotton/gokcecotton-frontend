@@ -67,8 +67,8 @@ export const CartPage = () => {
         }
     };
 
-    // const shippingCost = totalPrice >= 850 ? 0 : 135;
-    const shippingCost = 0;
+    const shippingCost = totalPrice >= 850 ? 0 : 135;
+    
 
     if (isLoading) {
         return <div className={css.loading}>Sepetiniz yükleniyor...</div>;
@@ -155,7 +155,8 @@ export const CartPage = () => {
                         </div>
                         <button className={css.checkoutBtn} onClick={() => navigate("/checkout")}>
                             Ödeme Adımına Geç
-                        </button>
+                            </button>
+                            <p>850 TL ve üzeri siparişlerde kargo ücretsiz!</p>
                     </aside>
                 </div>
             )}
